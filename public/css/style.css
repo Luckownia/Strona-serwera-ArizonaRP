@@ -205,17 +205,6 @@ input[type="checkbox"] {
   display: none;
 }
 
-/*.btn-switch-mode {
-  position: relative;
-  width: 65px;
-  height: 25px;
-  border-radius: 40px;
-  background-color: #5f5b5b;
-  display: block;
-  cursor: pointer;
-  z-index: 5;
-}*/
-
 .btn-switch-mode .circle {
   content: "";
   position: absolute;
@@ -249,11 +238,6 @@ input[type="checkbox"] {
   background-color: var(--fourthcolor);
   /*obracanie sie slonca na hover*/
 }
-
-/*input[type="checkbox"]:checked ~ .btn-switch-mode .circle {
-  -webkit-transform: translate(80%, -50%);
-  transform: translate(80%, -50%);
-}*/
 
 .headline-car {
   display: -webkit-box;
@@ -469,32 +453,6 @@ input[type="checkbox"] {
 .landing-page-2 {
   padding-bottom: 0;
 }
-
-/*.landing-page::before {
-    content: "";
-    left: 50%;
-    transform: translateX(-50%);
-    height: 900px;
-    width: 900px;
-    clip-path: circle(60.4% at 50% 0);
-    background: linear-gradient(180deg, #BFBABA 7.71%, rgba(117, 110, 110, 0) 107.71%);
-    top: -35%;
-    position: absolute;
-    z-index: -1;
-}
-
-.landing-page::after {
-    content: "";
-    left: 50%;
-    transform: translateX(-50%);
-    height: 900px;
-    width: 900px;
-    clip-path: circle(50.0% at 50% 100%);
-    background: linear-gradient(180deg, #BFBABA 7.71%, rgba(117, 110, 110, 0) 107.71%);
-    bottom: -30%;
-    position: absolute;
-}
-*/
 
 .article {
   display: flex;
@@ -942,6 +900,146 @@ input[type="checkbox"] {
   -webkit-box-shadow: 5px 5px 26px 4px rgba(0, 0, 0, 0.41);
   box-shadow: 5px 5px 26px 4px rgba(0, 0, 0, 0.41);
 }
+/*DRUGA PODSTRONA /DOLACZ*/
+/* FORMULARZ DO LOGOWANIA */
+.wrapper {
+  width: 380px;
+  background: var(--firstcolor);
+  border-radius: 15px;
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Open Sans", sans-serif;
+}
+
+/* Reszta stylowania wrappera */
+.wrapper .title {
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 100px;
+  color: var(--firstcolor);
+  user-select: none;
+  border-radius: 15px 15px 0 0;
+  background: var(--fourthcolor);
+}
+
+.wrapper form {
+  padding: 10px 30px 50px 30px;
+}
+
+.wrapper form .field {
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+}
+
+.wrapper form .field input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  padding-left: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.wrapper form .field input:focus,
+.wrapper form .field input:valid {
+  border-color: #4158d0;
+}
+
+.wrapper form .field label {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  color: #999999;
+  font-weight: 400;
+  font-size: 17px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.wrapper form .field input:focus ~ label,
+.wrapper form .field input:valid ~ label {
+  top: 0%;
+  font-size: 16px;
+  color: #4158d0;
+  background: #fff;
+  transform: translateY(-50%);
+}
+
+.wrapper form .content {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.wrapper form .content .checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper form .content input {
+  width: 15px;
+  height: 15px;
+  background: red;
+}
+
+.wrapper form .content label {
+  color: var(--fourthcolor);
+  user-select: none;
+  padding-left: 5px;
+}
+
+.wrapper form .field input[type="submit"] {
+  color: var(--firstcolor);
+  border: none;
+  padding-left: 0;
+  margin-top: -10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--fourthcolor);
+  transition: all 0.3s ease;
+}
+
+.wrapper form .field input[type="submit"]:active {
+  transform: scale(0.95);
+}
+
+.wrapper form .field input[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 2px 10px var(--fourthcolor);
+}
+
+.wrapper form .signup-link {
+  color: var(--fourthcolor);
+  margin-top: 20px;
+  text-align: center;
+}
+
+.wrapper form .pass-link a,
+.wrapper form .signup-link a {
+  color: #4158d0;
+  text-decoration: none;
+}
+
+.wrapper form .pass-link a:hover,
+.wrapper form .signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* KONIEC FORMULARZA */
 
 /* RESPONSYWNOSC */
 @media (min-width: 1300px) {
@@ -1003,11 +1101,6 @@ input[type="checkbox"] {
     font-size: 22px;
   }
 
-  .btn-switch-mode {
-    width: 80px;
-    height: 35px;
-  }
-
   .btn-switch-mode .circle {
     width: 45px;
     height: 45px;
@@ -1064,11 +1157,6 @@ input[type="checkbox"] {
   .turn-off img {
     width: 50px;
   }
-
-  /*.btn-switch-mode {
-    width: 80px;
-    height: 35px;
-  }*/
 
   .btn-switch-mode .circle {
     width: 45px;
