@@ -23,6 +23,7 @@ body {
   --fifthcolor: white;
   --sixthcolor: linear-gradient(242.86deg, #000000 25.22%, #665e5e 98.71%);
   --seventhcolor: white;
+  --eightcolor: #403a3a;
   --fontfirst: "Montserrat", sans-serif;
   --fontsecond: "Open Sans", sans-serif;
 }
@@ -35,6 +36,7 @@ body {
   --fifthcolor: #444444;
   --sixthcolor: linear-gradient(242.86deg, #ffffff 25.22%, #bab6b6 98.71%);
   --seventhcolor: black;
+  --eightcolor: white;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -904,7 +906,7 @@ input[type="checkbox"] {
 /* FORMULARZ DO LOGOWANIA */
 .wrapper {
   width: 380px;
-  background: var(--firstcolor);
+  background: var(--eightcolor);
   border-radius: 15px;
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
   position: absolute;
