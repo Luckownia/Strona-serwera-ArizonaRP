@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["user"])) {
-    header("Location: indexLogged.php");
+    header("Location: panel.php");
 }
 ?>
 <!DOCTYPE html lang="pl">
@@ -43,7 +43,7 @@ if (isset($_SESSION["user"])) {
                         <ul class="navigation">
                             <li> <a href="index.php" class="nav-link"> Główna</a> </li>
                             <li> <a href="#" class="nav-link active"> Zaloguj się</a> </li>
-                            <li> <a href="indexLogged.php" class="nav-link"> Panel</a> </li>
+                            <li> <a href="panel.php" class="nav-link"> Panel</a> </li>
                         </ul>
 
                     </div>
@@ -69,7 +69,11 @@ if (isset($_SESSION["user"])) {
                             if (password_verify($password, $user["password"])) {
                                 session_start();
                                 $_SESSION["user"] = "yes";
-                                header("Location: indexLogged.php");
+                                $_SESSION['user_id'] = $user['id']; // Załóżmy, że użytkownik ma identyfikator 'id' w tabeli użytkowników
+                                $_SESSION['user_nickname'] = $user['nickname'];
+                                $_SESSION['user_email'] = $user['email'];
+                                $_SESSION['user_rank'] = $user['rank'];
+                                header("Location: panel.php");
                                 die();
                             }else{
                                 echo "<div class='alert-danger'>Dane się nie zgadzają</div>";
@@ -79,7 +83,7 @@ if (isset($_SESSION["user"])) {
                         }
                     }
                     ?>
-                    <form action="index2.php" method="post">
+                    <form action="login.php" method="post">
                         <div class="field">
                             <input type="text" required name="email">
                             <label>E-mail</label>

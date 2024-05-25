@@ -34,7 +34,7 @@
                 <ul class="navigation">
                     <li><a href="index.php" class="nav-link">Główna</a></li>
                     <li><a href="#" class="nav-link active">Zaloguj się</a></li>
-                    <li> <a href="indexLogged.php" class="nav-link"> Panel</a> </li>
+                    <li> <a href="panel.php" class="nav-link"> Panel</a> </li>
                 </ul>
             </div>
         </nav>
@@ -46,6 +46,7 @@
         $nickname = $_POST["nickname"];
         $email = $_POST["email"];
         $password = $_POST["password"];
+        $rank = "rekrut"; //domyślna ranga, dla ludzi którzy jeszcze nie mają whitelist zdanej
         $repeated_password = $_POST["repeated_password"];
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $errors = array();
@@ -96,13 +97,13 @@
                 echo "<div class='alert-failure'>$error</div>";
             }
         } else {
-            $sql = "INSERT INTO users (nickname, email, password) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO users (nickname, email, password, rank) VALUES (?, ?, ?, ?)";
             $stmt = mysqli_stmt_init($conn);
             if (mysqli_stmt_prepare($stmt, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sss", $nickname, $email, $password_hash);
+                mysqli_stmt_bind_param($stmt, "ssss", $nickname, $email, $password_hash, $rank);
                 mysqli_stmt_execute($stmt);
                 echo "<div class='alert-success'>
-                       Pomyślnie zarejestrowano. <a href='index2.php'>Zaloguj się</a>
+                       Pomyślnie zarejestrowano. <a href='login.php'>Zaloguj się</a>
                        
                        </div>";
             } else {

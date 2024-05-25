@@ -37,8 +37,15 @@
                         </button>
                         <ul class="navigation">
                             <li> <a href="#" class="nav-link active"> Głowna</a> </li>
-                            <li> <a href="index2.php" class="nav-link"> Zaloguj się</a> </li>
-                            <li> <a href="indexLogged.php" class="nav-link"> Panel</a> </li>
+                            <?php
+                            session_start();
+                            if (isset($_SESSION['user'])) {
+                                echo '<li> <a href="logout.php" class="nav-link"> Wyloguj się</a> </li>';
+                            } else {
+                                echo '<li> <a href="login.php" class="nav-link"> Zaloguj się</a> </li>';
+                            }
+                            ?>
+                            <li> <a href="panel.php" class="nav-link"> Panel</a> </li>
                         </ul>
 
                     </div>
@@ -126,7 +133,7 @@
                             mechanik?
                             Nic nie szkodzi! Na ArizonaRP mamy prace dorywcze, takich jak kucharz, rolnik, rybak, taxi,
                             śmieciarz oraz wiele innych!</p>
-                        <a href="index2.html"><button class="btn-join-2">Dołącz do nas!</button></a>
+                        <a href="login.php"><button class="btn-join-2">Dołącz do nas!</button></a>
                     </div>
                 </div>
             </section>
