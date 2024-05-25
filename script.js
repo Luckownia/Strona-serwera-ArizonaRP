@@ -100,6 +100,7 @@ const sectionSec = document.querySelector(".feature-2");
 const sectionThr = document.querySelector(".feature-3");
 const sectionFor = document.querySelector(".feature-4");
 const sekcjaFor = document.querySelector("#section-4");
+const switchCircle = document.querySelector(".circle");
 const switchModeAll = document.querySelectorAll(".switch-mode-checkbox");
 let theme = "dark";
 const currentTheme = localStorage.getItem("theme");
@@ -120,15 +121,16 @@ inputCheckbox.addEventListener("click", function () {
   localStorage.setItem("theme", theme);
 });
 function themechange() {
-  if (currentTheme == "dark") {
+  if (currentTheme == "light") {
     document.body.classList.add("darkmode");
     //circle.classList.add("span-transform");
     circleImage.src = "public/assets/moon.png";
     photo.src = "public/assets/blackpalm.png";
     theme = "dark";
-  } else if (currentTheme == "light") {
+  } else if (currentTheme == "dark") {
     document.body.classList.remove("darkmode");
-    // circle.classList.remove("span-transform");
+    //circle.classList.remove("span-transform");
+    //switchCircle.style.transform = "translate(80%, -50%)";
     circleImage.src = "public/assets/sun.png";
     photo.src = "public/assets/palm-tree-48.png";
     theme = "light";

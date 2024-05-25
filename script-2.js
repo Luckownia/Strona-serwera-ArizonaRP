@@ -64,6 +64,7 @@ const sectionSec = document.querySelector(".feature-2");
 const sectionThr = document.querySelector(".feature-3");
 const sectionFor = document.querySelector(".feature-4");
 const sekcjaFor = document.querySelector("#section-4");
+const switchCircle = document.querySelector(".circle");
 let theme = "dark";
 const currentTheme = localStorage.getItem("theme");
 
@@ -82,14 +83,15 @@ inputCheckbox.addEventListener("click", function () {
 });
 
 function themechange() {
-  if (currentTheme == "dark") {
+  if (currentTheme == "light") {
     document.body.classList.add("darkmode");
     circleImage.src = "public/assets/moon.png";
     photo.src = "public/assets/blackpalm.png";
     theme = "dark";
-  } else if (currentTheme == "light") {
+  } else if (currentTheme == "dark") {
     document.body.classList.remove("darkmode");
     circleImage.src = "public/assets/sun.png";
+    //switchCircle.style.transform = "translate(80%, -50%)";
     photo.src = "public/assets/palm-tree-48.png";
     theme = "light";
   }
