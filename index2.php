@@ -1,4 +1,10 @@
-    <!DOCTYPE html lang="pl">
+<?php
+session_start();
+if (isset($_SESSION["user"])) {
+    header("Location: indexLogged.php");
+}
+?>
+<!DOCTYPE html lang="pl">
 
     <head>
         <meta charset="UTF-8">
@@ -35,9 +41,9 @@
                          <span class="pasek1"></span>
                         </button>
                         <ul class="navigation">
-                            <li> <a href="index.html" class="nav-link"> Główna</a> </li>
+                            <li> <a href="index.php" class="nav-link"> Główna</a> </li>
                             <li> <a href="#" class="nav-link active"> Zaloguj się</a> </li>
-                            <li> <a href="#" class="nav-link"> Regulamin</a> </li>
+                            <li> <a href="indexLogged.php" class="nav-link"> Panel</a> </li>
                         </ul>
 
                     </div>
@@ -47,13 +53,39 @@
                     <div class="title">
                         Zaloguj się
                     </div>
-                    <form action="#">
+                    <?php
+                    if (isset($_POST["login"])) {
+                        $email = $_POST["email"];
+                        $password = $_POST["password"];
+                        $sql = "SELECT * FROM users WHERE email = '$email'";
+                        $hostName = "localhost";
+                        $dbUser = "root";
+                        $dbPassword = "";
+                        $dbName = "login_register";
+                        $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
+                        $result = mysqli_query($conn, $sql);
+                        $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                        if ($user) {
+                            if (password_verify($password, $user["password"])) {
+                                session_start();
+                                $_SESSION["user"] = "yes";
+                                header("Location: indexLogged.php");
+                                die();
+                            }else{
+                                echo "<div class='alert-danger'>Dane się nie zgadzają</div>";
+                            }
+                        }else{
+                            echo "<div class='alert-danger'>Dane się nie zgadzają</div>";
+                        }
+                    }
+                    ?>
+                    <form action="index2.php" method="post">
                         <div class="field">
-                            <input type="text" required>
+                            <input type="text" required name="email">
                             <label>E-mail</label>
                         </div>
                         <div class="field">
-                            <input type="password" required>
+                            <input type="password" required name="password">
                             <label>Hasło</label>
                         </div>
                         <div class="content">
@@ -62,10 +94,10 @@
                             </div>
                         </div>
                         <div class="field">
-                            <input type="submit" value="Zaloguj">
+                            <input type="submit" value="Zaloguj" name="login">
                         </div>
                         <div class="signup-link">
-                            Nie masz konta? <a href="#">Zarejestruj się</a>
+                            Nie masz konta? <a href="register.php">Zarejestruj się</a>
                         </div>
                     </form>
                 </div>
