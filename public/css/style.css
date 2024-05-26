@@ -1091,12 +1091,16 @@ input[type="checkbox"] {
 .profile-password .sub-headline {
   margin-right: 10px;
 }
+#headline-profile p {
+  font-size: 20px;
+}
 
 #headline-profile .field label {
   color: var(--fourthcolor);
   font-weight: 400;
-  font-size: 20px;
+  font-size: 25px;
   pointer-events: none;
+  margin-right: 10px;
 }
 #headline-profile .field input {
   height: 100%;
@@ -1119,6 +1123,10 @@ input[type="checkbox"] {
   cursor: pointer;
   background: var(--fourthcolor);
   transition: all 0.3s ease;
+}
+#headline-profile .field input[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 2px 20px gray;
 }
 
 .profile-password a {

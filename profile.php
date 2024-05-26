@@ -55,14 +55,55 @@ if (!isset($_SESSION["user"])) {
                             echo "<p class='sub-headline'>Ranga: {$_SESSION['user_rank']}</p>";
                             echo "<p class='sub-headline'>Email: {$_SESSION['user_email']}</p>";
                         ?>
+                        <?php
+                        if (isset($_POST["profile_submit"])) {
+                            $password = $_POST["new_password"];
+                            $errors = array();
+
+                            // Walidacja hasła
+                            if (strlen($password) < 8) {
+                                array_push($errors, "Hasło musi mieć przynajmniej 8 znaków");
+                            }
+
+                            // Tworzenie połączenia z bazą danych
+                            require 'database.php';
+                            
+                            // Ustawienie nowego hasła dla użytkownika
+                            $user = $_SESSION['user_nickname'];
+
+                            // Wyświetlanie błędów przy zmianie hasła
+                            if (count($errors) > 0) {
+                                foreach ($errors as $error) {
+                                    echo "<div class='alert-danger'>$error</div>";
+                                }
+                            } else {
+                                // Ucieczka wartości zmiennych, aby uniknąć SQL Injection
+                                $user = mysqli_real_escape_string($conn, $user);
+                                $password = mysqli_real_escape_string($conn, $password);
+
+                                // Zapytanie SQL do zmiany hasła
+                                $sql = "SET PASSWORD FOR '$user'@'localhost' = PASSWORD('$password')";
+                                if ($conn->query($sql) === TRUE) {
+                                    echo "<div class='alert-success'>Pomyślnie zmieniono hasło.</div>";
+                                } else {
+                                    echo "<div class='alert-danger'>Coś poszło nie tak przy zmianie hasła: " . $conn->error . "</div>";
+                                }
+                            }
+
+                            // Zamknięcie połączenia
+                            $conn->close();
+                        }
+                        ?>
 
                         <form action="profile.php" method="post">
                             <div class="field">
-                                <label>Hasło</label>
-                                <input type="password" name="password" required>
+                                <label>Hasło: </label>
+                                <input type="password" name="new_password" required>
                                 <input type="submit" value="Zmień" name="profile_submit">
                             </div>
                         </form>
+                        
+                        
 
                         <a href="panel.php"><button class="btn-join-2">Panel</button></a>
                         <a href="#"><button class="btn-join-2">White List</button></a>
