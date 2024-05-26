@@ -41,7 +41,7 @@ if (!isset($_SESSION["user"])) {
                          <span class="pasek1"></span>
                         </button>
                         <ul class="navigation">
-                            <li> <a href="index.php" class="nav-link"> Głowna</a> </li>
+                            <li> <a href="index.php" class="nav-link"> Główna</a> </li>
                             <li> <a href="logout.php" class="nav-link"> Wyloguj się</a> </li>
                             <li> <a href="panel.php" class="nav-link active"> Panel</a> </li>
                         </ul>

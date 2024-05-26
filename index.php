@@ -36,7 +36,7 @@
                          <span class="pasek1"></span>
                         </button>
                         <ul class="navigation">
-                            <li> <a href="#" class="nav-link active"> Głowna</a> </li>
+                            <li> <a href="#" class="nav-link active"> Główna</a> </li>
                             <?php
                             session_start();
                             if (isset($_SESSION['user'])) {

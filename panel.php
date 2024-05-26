@@ -41,7 +41,7 @@ if (!isset($_SESSION["user"])) {
                          <span class="pasek1"></span>
                         </button>
                         <ul class="navigation">
-                            <li> <a href="index.php" class="nav-link"> Głowna</a> </li>
+                            <li> <a href="index.php" class="nav-link"> Główna</a> </li>
                             <li> <a href="logout.php" class="nav-link"> Wyloguj się</a> </li>
                             <li> <a href="panel.php" class="nav-link active"> Panel</a> </li>
                         </ul>
@@ -52,7 +52,7 @@ if (!isset($_SESSION["user"])) {
                     <div id="headline-panel" class="headline-section">
                         <?php
                             echo "<h1 class='headline'>Witaj {$_SESSION['user_nickname']}, miło cię widzieć ;)</h1>";
-                            echo '<a href="#"><button class="btn-join-2">Mój Profil</button></a>';
+                            echo '<a href="profile.php"><button class="btn-join-2">Mój Profil</button></a>';
                         if ($_SESSION["user_rank"] == "rekrut") {
                             echo '<a href="#"><button class="btn-join-2">Zdaj na white-list</button></a>';
                         } else {
