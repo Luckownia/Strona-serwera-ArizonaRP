@@ -1073,6 +1073,66 @@ input[type="checkbox"] {
   width: 200px;
 }
 /*KONIEC PANELU*/
+
+/*POCZATEK PROFILU*/
+#headline-profile ~ .container-car {
+  display: flex;
+  flex-direction: column;
+}
+#headline-profile {
+  display: flex;
+  flex-direction: column;
+}
+.profile-password {
+  display: flex;
+  align-items: center;
+}
+.profile-password .sub-headline {
+  margin-right: 10px;
+}
+#headline-profile p {
+  font-size: 20px;
+}
+
+#headline-profile .field label {
+  color: var(--fourthcolor);
+  font-weight: 400;
+  font-size: 25px;
+  pointer-events: none;
+  margin-right: 10px;
+}
+#headline-profile .field input {
+  height: 100%;
+  width: 150px;
+  outline: none;
+  font-size: 17px;
+  padding-left: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 25px;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#headline-profile .field input[type="submit"] {
+  color: var(--firstcolor);
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--fourthcolor);
+  transition: all 0.3s ease;
+}
+#headline-profile .field input[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 2px 20px gray;
+}
+
+.profile-password a {
+  color: var(--fourthcolor);
+}
+/*KONIEC PROFILU*/
+
 /* RESPONSYWNOSC */
 @media (min-width: 1300px) {
   .logo,
