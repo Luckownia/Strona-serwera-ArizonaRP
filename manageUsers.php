@@ -19,8 +19,9 @@
             border: none; /* Usunięcie obramowania */
             border-radius: 5px; /* Zaokrąglenie rogów */
             cursor: pointer; /* Zmiana kursora na wskaźnik */
-            right: 30%;
+            right: 60%;
             top: -300px;
+            display: none; /* Przyciski są ukryte na początku */
         }
         .userOptions:hover {
             background-color: #45a049; /* Kolor tła po najechaniu */
@@ -31,9 +32,62 @@
         .userDelete:hover{
             background-color: darkred; /* Kolor tła po najechaniu */
         }
+        .user-details{
+            visibility: hidden;
+        }
+        /* Stylowanie dla okna modalnego */
+        .modal {
+            display: none; /* Ukrywamy modal na początku */
+            position: fixed; /* Pozycjonowanie absolutne względem okna przeglądarki */
+            z-index: 9999; /* Wysoki indeks z-index, aby być na wierzchu */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Przezroczyste tło */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Wyrównanie do środka */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Szerokość okna modalnego */
+            max-width: 400px; /* Maksymalna szerokość */
+        }
+
+        /* Stylowanie przycisku zamknięcia */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+<div class="modal" id="changeRankModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="rank-user-nickname">Wybierz nową rangę dla:</h2>
+        <form id="changeRankForm" action="update_rank.php" method="post">
+            <input type="hidden" id="userId" name="userId">
+            <select id="newRankSelect" name="newRank"> <!-- Dodanie atrybutu name -->
+                <option value="rekrut">Rekrut</option>
+                <option value="gracz">Gracz</option>
+                <option value="administrator">Administrator</option>
+            </select>
+            <button id="confirmRankChange" type="submit">Potwierdź</button>
+        </form>
+    </div>
+</div>
 <span class="mouse"></span>
 <div class="landing-page">
     <header>
@@ -84,16 +138,40 @@
         mysqli_close($conn);
         ?>
     </div>
+
     <div class="container-car">
-        <!-- Ten div będzie używany do wyświetlania nazwy użytkownika -->
+        <div class="user-details">
+            <div class="user-nickname">' + 'Zarządzasz użytkownikiem: ' + userNickname + '</div>
+            <div class="buttons">
+                <?php
+                echo '<button class="btn-join-2 userOptions" id="rankChangeButton">Zmień rangę</button>';
+                echo '<button class="btn-join-2 userDelete userOptions">Usuń użytkownika</button>';
+                ?>
+            </div>
+        </div>
     </div>
 </div>
+<?php
+require 'database.php';
+$sql = "SELECT id, nickname, rank FROM users";
+$result = mysqli_query($conn, $sql);
+mysqli_close($conn);
+?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="script-2.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const table = document.getElementById('users-table');
         const containerCar = document.querySelector('.container-car');
+        const userDetails = document.querySelector('.user-details');
+        const modal = document.getElementById('changeRankModal');
+        const userIdInput = document.getElementById('userId');
+        const form = document.getElementById('changeRankForm');
+        const rankChangeButton = document.getElementById('rankChangeButton');
+        const rankUserNickname = document.getElementById('rank-user-nickname');
+        let userId = null;
+
         table.addEventListener('click', function (event) {
             let target = event.target;
             while (target && target.nodeName !== 'TR') {
@@ -101,20 +179,52 @@
             }
             if (target) {
                 const userNickname = target.getAttribute('data-user-nickname');
+                userId = target.getAttribute('data-user-id');
                 if (userNickname) {
-                    containerCar.innerHTML = '<div class="user-details">' +
-                        '<div class="user-nickname">' + 'Zarządzasz użytkownikiem: ' + userNickname + '</div>' +
-                        '<div class="buttons">' +
-                        '<button class="btn-join-2 userOptions">Przycisk 1</button>' +
-                        '<button class="btn-join-2 userDelete userOptions">Przycisk 2</button>' +
-                        '<button class="btn-join-2 userOptions">Przycisk 2</button>' +
-                        '<button class="btn-join-2 userOptions">Przycisk 2</button>' +
-                        '</div>' +
-                        '</div>';
+                    userDetails.style.visibility = 'visible';
+                    userDetails.querySelector('.user-nickname').innerHTML = 'Zarządzasz użytkownikiem: ' + userNickname;
+                    const buttons = containerCar.querySelectorAll('.userOptions');
+                    buttons.forEach(button => {
+                        button.style.display = 'block';
+                    });
+                    rankUserNickname.innerHTML= 'Zmień rangę dla: ' + userNickname;
                 }
             }
         });
+
+        rankChangeButton.addEventListener('click', function() {
+            const userId = this.dataset.userId;
+            userIdInput.value = userId;
+            modal.style.display = 'block';
+        });
+
+        form.addEventListener('submit', function () {
+            // Po przesłaniu formularza strona zostanie odświeżona automatycznie
+        });
+
+        const closeModal = document.querySelector('.close');
+
+        function closeModalFunc() {
+            modal.style.display = 'none';
+        }
+
+        closeModal.addEventListener('click', closeModalFunc);
+
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                closeModalFunc();
+            }
+        });
+
+        function changeUserRank() {
+            const newRank = document.getElementById('newRankSelect').value;
+            console.log('Nowa ranga:', newRank);
+            closeModalFunc();
+        }
+
+        document.getElementById('confirmRankChange').addEventListener('click', changeUserRank);
     });
 </script>
 </body>
 </html>
+

@@ -105,8 +105,7 @@ if (!isset($_SESSION["user"])) {
                         
                         
 
-                        <a href="panel.php"><button class="btn-join-2">Panel</button></a>
-                        <a href="#"><button class="btn-join-2">White List</button></a>
+                        <a href="panel.php"><button class="btn-join-2">Wróć</button></a>
                     </div>
                     <div class="container-car">
                         <h1 class='headline'>Ranga <?php echo "<h1 class='sub-headline'>Ranga: {$_SESSION['user_rank']}</h1>";?> </h1>
