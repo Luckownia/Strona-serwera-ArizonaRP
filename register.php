@@ -64,17 +64,9 @@
             array_push($errors, "Hasła nie są takie same");
         }
 
-        // Tworzenie połączenia z bazą danych
-        //require_once "database.php"; powinno to działać i nie trzeba by było tego co jest niżej wtedy dawać
-        $hostName = "localhost";
-        $dbUser = "root";
-        $dbPassword = "";
-        $dbName = "login_register";
-        $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
-        //o dotąd co nie, nwm czemu nie chyta z tego pliku drugiego
-        if (!$conn) {
-            die("Coś poszło nie tak z połączeniem do bazy danych");
-        }
+        // Tworzenie połączenia z bazą danych 
+        //podminiłem na to require i dziala
+        require 'database.php';
 
         // Sprawdzanie, czy email już istnieje
         $sql = "SELECT * FROM users WHERE email = ?";
@@ -94,7 +86,7 @@
         // Wyświetlanie błędów lub dodawanie użytkownika do bazy danych
         if (count($errors) > 0) {
             foreach ($errors as $error) {
-                echo "<div class='alert-failure'>$error</div>";
+                echo "<div class='alert-danger'>$error</div>";
             }
         } else {
             $sql = "INSERT INTO users (nickname, email, password, rank) VALUES (?, ?, ?, ?)";

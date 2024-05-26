@@ -904,6 +904,7 @@ input[type="checkbox"] {
 }
 /*DRUGA PODSTRONA /DOLACZ*/
 /* FORMULARZ DO LOGOWANIA */
+
 .wrapper {
   width: 380px;
   background: var(--eightcolor);
@@ -1041,6 +1042,23 @@ input[type="checkbox"] {
   text-decoration: underline;
 }
 
+/*Style alertow*/
+.alert-danger {
+  text-align: center;
+  color: red;
+  margin-top: 15px;
+  font: var(--fontfirst);
+  font-weight: 700;
+  font-size: 17px;
+}
+.alert-success {
+  text-align: center;
+  color: green;
+  margin-top: 15px;
+  font: var(--fontfirst);
+  font-weight: 700;
+  font-size: 17px;
+}
 /* KONIEC FORMULARZA */
 
 /* RESPONSYWNOSC */
