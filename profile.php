@@ -49,17 +49,27 @@ if (!isset($_SESSION["user"])) {
                     </div>
                 </nav>
                 </header>
-                    <div id="headline-panel" class="headline-section">
+                    <div id="headline-profile" class="headline-section">
                         <?php
-                            echo "<h1 class='headline'>Witaj {$_SESSION['user_nickname']}, udało ci się zalogować do panelu</h1>";
-                            echo "<p class='sub-headline'>eś, twoja ranga to {$_SESSION['user_rank']}</p>";
+                            echo "<h1 class='headline'> Nick : {$_SESSION['user_nickname']}</h1>";
+                            echo "<p class='sub-headline'>Ranga: {$_SESSION['user_rank']}</p>";
+                            echo "<p class='sub-headline'>Email: {$_SESSION['user_email']}</p>";
                         ?>
-                        <a href="profile.php"><button class="btn-join-2">Mój Profil</button></a>
+
+                        <form action="profile.php" method="post">
+                            <div class="field">
+                                <label>Hasło</label>
+                                <input type="password" name="password" required>
+                                <input type="submit" value="Zmień" name="profile_submit">
+                            </div>
+                        </form>
+
+                        <a href="panel.php"><button class="btn-join-2">Panel</button></a>
                         <a href="#"><button class="btn-join-2">White List</button></a>
                     </div>
                     <div class="container-car">
-                        <h1 class='headline'>Ranga Rekrut</h1>
-                        <img src="public/assets/mechanic.png" alt="mechanic">
+                        <h1 class='headline'>Ranga <?php echo "<h1 class='sub-headline'>Ranga: {$_SESSION['user_rank']}</h1>";?> </h1>
+                        <p class="sub-headline">Jakies zdjecie rangi czy odznaki</p>
                     </div>
 
 
