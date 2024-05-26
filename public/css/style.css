@@ -1061,6 +1061,19 @@ input[type="checkbox"] {
 }
 /* KONIEC FORMULARZA */
 
+/*PANEL*/
+#headline-panel {
+  margin-top: 120px;
+}
+
+#headline-panel ~ .container-car {
+  display: flex;
+  flex-direction: column;
+}
+#headline-panel ~ .container-car img {
+  width: 200px;
+}
+/*KONIEC PANELU*/
 /* RESPONSYWNOSC */
 @media (min-width: 1300px) {
   .logo,

@@ -49,12 +49,17 @@ if (!isset($_SESSION["user"])) {
                     </div>
                 </nav>
                 </header>
-                    <div class="headline-section">
+                    <div id="headline-panel" class="headline-section">
                         <?php
                             echo "<h1 class='headline'>Witaj {$_SESSION['user_nickname']}, udało ci się zalogować do panelu</h1>";
                             echo "<p class='sub-headline'>eś, twoja ranga to {$_SESSION['user_rank']}</p>";
                         ?>
-
+                        <a href="#"><button class="btn-join-2">Mój Profil</button></a>
+                        <a href="#"><button class="btn-join-2">White List</button></a>
+                    </div>
+                    <div class="container-car">
+                        <h1 class='headline'>Ranga Rekrut</h1>
+                        <img src="public/assets/mechanic.png" alt="mechanic">
                     </div>
 
 
@@ -63,8 +68,7 @@ if (!isset($_SESSION["user"])) {
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
             <script src="script-2.js"></script>
-            <script src="script/GLTFLoader.js"></script>
-            <script src="car3d.js"></script>
+          
 
     </body>
 
