@@ -58,11 +58,7 @@ if (isset($_SESSION["user"])) {
                         $email = $_POST["email"];
                         $password = $_POST["password"];
                         $sql = "SELECT * FROM users WHERE email = '$email'";
-                        $hostName = "localhost";
-                        $dbUser = "root";
-                        $dbPassword = "";
-                        $dbName = "login_register";
-                        $conn = mysqli_connect($hostName, $dbUser, $dbPassword, $dbName);
+                        require 'database.php';
                         $result = mysqli_query($conn, $sql);
                         $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
                         if ($user) {
@@ -76,10 +72,10 @@ if (isset($_SESSION["user"])) {
                                 header("Location: panel.php");
                                 die();
                             }else{
-                                echo "<div class='alert-danger'>Dane się nie zgadzają</div>";
+                                echo "<div class='alert-danger'>Nieprawidłowe hasło</div>";
                             }
                         }else{
-                            echo "<div class='alert-danger'>Dane się nie zgadzają</div>";
+                            echo "<div class='alert-danger'>Użytkownik z takim e-mailem nie istnieje</div>";
                         }
                     }
                     ?>
