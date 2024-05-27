@@ -92,7 +92,7 @@
         margin-left: 10px;
         }
         #confirmRankChange{
-            color: var(--firstcolor);
+            color: white;
             border: none;
             padding:10px 20px;
             font-size: 20px;
@@ -143,6 +143,9 @@
         max-height: 400px;
         overflow-y: auto;  
         width:100%;
+        }
+        #users-table:hover{
+            cursor: pointer;
         }
 
         /* Styl dla nagłówków tabelki */
