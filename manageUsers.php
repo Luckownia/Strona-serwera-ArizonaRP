@@ -70,6 +70,36 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+    
+        /* Styl dla całej tabelki */
+        #users-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        
+        }
+
+        /* Styl dla nagłówków tabelki */
+        #users-table th {
+        background-color: var(--fourthcolor);
+        color: var(--firstcolor);
+        padding: 15px;
+        text-align: left;
+        border: 2px solid var(--seventhcolor);
+        }
+
+        /* Styl dla komórek tabelki */
+        #users-table td {
+        padding: 15px;
+        border: 2px solid var(--seventhcolor);
+        color:var(--seventhcolor);
+        }
+     
+
     </style>
 </head>
 <body>
