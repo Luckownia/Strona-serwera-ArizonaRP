@@ -51,9 +51,9 @@ if (!isset($_SESSION["user"])) {
                 </header>
                     <div id="headline-profile" class="headline-section">
                         <?php
-                            echo "<h1 class='headline'> Nick : {$_SESSION['user_nickname']}</h1>";
-                            echo "<p class='sub-headline'>Ranga: {$_SESSION['user_rank']}</p>";
-                            echo "<p class='sub-headline'>Email: {$_SESSION['user_email']}</p>";
+                            echo "<h1 class='headline' id='panel_nick'> Nick : {$_SESSION['user_nickname']}</h1>";
+                            echo "<p class='sub-headline' id='panel_rank'>Ranga: {$_SESSION['user_rank']}</p>";
+                            echo "<p class='sub-headline' id='panel_email'>Email: {$_SESSION['user_email']}</p>";
                         ?>
                         <?php
                         if (isset($_POST["profile_submit"])) {
@@ -105,10 +105,11 @@ if (!isset($_SESSION["user"])) {
                         
                         
 
-                        <a href="panel.php"><button class="btn-join-2">Wróć</button></a>
+                        <a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>
                     </div>
                     <div class="container-car">
-                        <h1 class='headline'>Ranga <?php echo "<h1 class='sub-headline'>Ranga: {$_SESSION['user_rank']}</h1>";?> </h1>
+                        <h1 class='headline' id="rank">Ranga  </h1>
+                        <?php echo "<h1 class='sub-headline' id='rank_con'>Ranga: {$_SESSION['user_rank']}</h1>";?>
                         <p class="sub-headline">Jakies zdjecie rangi czy odznaki</p>
                     </div>
 
@@ -118,7 +119,37 @@ if (!isset($_SESSION["user"])) {
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
             <script src="script-2.js"></script>
-          
+            <script>
+                const nick_profile = document.querySelector("#panel_nick");
+                nick_profile.addEventListener("mouseenter", animateCursor);
+                nick_profile.addEventListener("mouseleave", removeAnimateCursor);
+
+                const panel_rank = document.querySelector("#panel_rank");
+                panel_rank.addEventListener("mouseenter", animateCursor);
+                panel_rank.addEventListener("mouseleave", removeAnimateCursor);
+
+                const panel_email = document.querySelector("#panel_email");
+                panel_email.addEventListener("mouseenter", animateCursor);
+                panel_email.addEventListener("mouseleave", removeAnimateCursor);
+
+                const field = document.querySelector(".field");
+                field.addEventListener("mouseenter", animateCursor);
+                field.addEventListener("mouseleave", removeAnimateCursor);
+
+                const btn_back = document.querySelector("#btn_back");
+                btn_back.addEventListener("mouseenter", animateCursor);
+                btn_back.addEventListener("mouseleave", removeAnimateCursor);
+
+                const rank_con = document.querySelector("#rank_con");
+                rank_con.addEventListener("mouseenter", animateCursor);
+                rank_con.addEventListener("mouseleave", removeAnimateCursor);
+
+                const rank = document.querySelector("#rank");
+                rank.addEventListener("mouseenter", animateCursor);
+                rank.addEventListener("mouseleave", removeAnimateCursor);
+
+                
+            </script>
 
     </body>
 
