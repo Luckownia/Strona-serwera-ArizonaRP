@@ -10,6 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
     <style>
+        #headline-manage{
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
         .userOptions {
             font-size: 0.8em; /* Zmniejszenie rozmiaru czcionki */
             padding: 5px 10px; /* Zmniejszenie paddingu */
@@ -19,8 +25,6 @@
             border: none; /* Usunięcie obramowania */
             border-radius: 5px; /* Zaokrąglenie rogów */
             cursor: pointer; /* Zmiana kursora na wskaźnik */
-            right: 60%;
-            top: -300px;
             display: none; /* Przyciski są ukryte na początku */
         }
         .userOptions:hover {
@@ -30,10 +34,33 @@
             background-color: red; /* Kolor tła po najechaniu */
         }
         .userDelete:hover{
-            background-color: darkred; /* Kolor tła po najechaniu */
+            background-color: #d30f0f; /* Kolor tła po najechaniu */
         }
         .user-details{
             visibility: hidden;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+        }
+        .user-details .btn-join-2{
+            padding:20px;
+            font-size:18px;
+        }
+        .user-details .btn-join-2:first-child{
+            margin-right: 20px;
+        }
+
+        .user-details .buttons{
+            position:static;
+        }
+
+        .user-nickname{
+            font-size:30px;
+            font-family:var(--fontfirst);
+            font-weight:700;
+            color:var(--seventhcolor);
+            margin-bottom: 20px;
         }
         /* Stylowanie dla okna modalnego */
         .modal {
@@ -50,10 +77,42 @@
         .modal-content {
             background-color: #fefefe;
             margin: 15% auto; /* Wyrównanie do środka */
-            padding: 20px;
+            padding: 40px;
             border: 1px solid #888;
             width: 80%; /* Szerokość okna modalnego */
             max-width: 400px; /* Maksymalna szerokość */
+        }
+        
+        #newRankSelect{
+        font-size: 17px;
+        padding: 10px 20px;
+        border: 1px solid lightgrey;
+        border-radius: 25px;
+        margin-right: 25px;
+        margin-left: 10px;
+        }
+        #confirmRankChange{
+            color: var(--firstcolor);
+            border: none;
+            padding:10px 20px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            background: #444444;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+        }
+
+        #confirmRankChange:hover{
+            transform: scale(1.05);
+            box-shadow: 2px 2px 10px #444444;
+        }
+        #rank-user-nickname{
+            font-size:24px;
+            font-family:var(--fontfirst);
+            font-weight:700;
+            color:black;
+            margin-bottom: 40px;
         }
 
         /* Stylowanie przycisku zamknięcia */
@@ -74,13 +133,16 @@
     
         /* Styl dla całej tabelki */
         #users-table {
-        width: 100%;
         border-collapse: collapse;
         font-family: Arial, sans-serif;
         margin-top: 20px;
         margin-bottom: 20px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        
+        box-shadow: 0 2px 20px var(--seventhcolor);
+        /*display: block; */
+        /*mozna dodac scrollbar ale wtedy chudzsza tabela*/
+        max-height: 400px;
+        overflow-y: auto;  
+        width:100%;
         }
 
         /* Styl dla nagłówków tabelki */
@@ -98,8 +160,8 @@
         border: 2px solid var(--seventhcolor);
         color:var(--seventhcolor);
         }
-     
-
+        
+        
     </style>
 </head>
 <body>
@@ -146,7 +208,7 @@
             </div>
         </nav>
     </header>
-    <div id="headline-panel" class="headline-section">
+    <div id="headline-manage" class="headline-section">
         <?php
         require 'database.php';
         $sql = "SELECT id, nickname, rank FROM users";
