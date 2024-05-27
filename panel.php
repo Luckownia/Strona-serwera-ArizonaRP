@@ -51,7 +51,7 @@ if (!isset($_SESSION["user"])) {
                 </header>
                     <div id="headline-panel" class="headline-section">
                         <?php
-                            echo "<h1 class='headline'>Witaj {$_SESSION['user_nickname']}, miło cię widzieć ;)</h1>";
+                            echo "<h1 class='headline' id='headline_panel'>Witaj {$_SESSION['user_nickname']}, miło cię widzieć ;)</h1>";
                             echo '<a href="profile.php"><button class="btn-join-2">Mój Profil</button></a>';
                         if ($_SESSION["user_rank"] == "rekrut") {
                             echo '<a href="#"><button class="btn-join-2">Zdaj na white-list</button></a>';
@@ -74,7 +74,17 @@ if (!isset($_SESSION["user"])) {
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
             <script src="script-2.js"></script>
-          
+            <script>
+                const headline_panel = document.querySelector("#headline_panel");
+                headline_panel.addEventListener("mouseenter", animateCursor);
+                headline_panel.addEventListener("mouseleave", removeAnimateCursor);
+
+                const all_btn = document.querySelectorAll(".btn-join-2");
+                all_btn.forEach(btn => {
+                    btn.addEventListener("mouseenter", animateCursor);
+                    btn.addEventListener("mouseleave", removeAnimateCursor);
+                });
+            </script>
 
     </body>
 
