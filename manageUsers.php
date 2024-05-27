@@ -229,7 +229,7 @@
         } else {
             echo "Błąd: " . mysqli_error($conn);
         }
-        echo '<a href="panel.php"><button class="btn-join-2">Wróć</button></a>';
+        echo '<a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>';
         mysqli_close($conn);
         ?>
     </div>
@@ -318,6 +318,30 @@ mysqli_close($conn);
         }
 
         document.getElementById('confirmRankChange').addEventListener('click', changeUserRank);
+
+        //Najezdzenie myszka 
+        const user_nickname = document.querySelector(".user-nickname");
+        user_nickname.addEventListener("mouseenter", animateCursor);
+        user_nickname.addEventListener("mouseleave", removeAnimateCursor);
+        
+        //Czy do wywalenia to najezdzenie na przyciski kursor?
+        const btn_join = document.querySelector("#rankChangeButton");
+        btn_join.addEventListener("mouseenter", animateCursor);
+        btn_join.addEventListener("mouseleave", removeAnimateCursor);
+
+        const btn_del = document.querySelector(".userDelete");
+        btn_del.addEventListener("mouseenter", animateCursor);
+        btn_del.addEventListener("mouseleave", removeAnimateCursor);
+
+        const btn_back = document.querySelector("#btn_back");
+        btn_back.addEventListener("mouseenter", animateCursor);
+        btn_back.addEventListener("mouseleave", removeAnimateCursor);
+
+        const users_table = document.querySelector("#users-table");
+        users_table.addEventListener("mouseenter", animateCursor);
+        users_table.addEventListener("mouseleave", removeAnimateCursor);
+
+
     });
 </script>
 </body>
