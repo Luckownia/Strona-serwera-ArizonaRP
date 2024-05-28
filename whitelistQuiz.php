@@ -17,6 +17,49 @@ if (!isset($_SESSION["user"])) {
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap"
             rel="stylesheet">
+        <style>
+            .quiz{
+                background: var(--fourthcolor);
+                border-radius: 15px;
+                box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-family: var( --fontfirst);
+                padding: 20px 60px;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                flex-direction:column;
+            }
+            .quiz-btns{
+                display:flex;
+                flex-direction:column;
+            }
+            #question{
+                color: var(--firstcolor);
+                font-size:30px;
+            }
+
+            .quiz-answer{
+                margin-bottom: 20px;
+                padding: 25px 80px;
+                border: none;
+                font-size: 22px;
+                text-transform: uppercase;
+                color: var(--seventhcolor);
+                background-color: var(--eightcolor);
+                border-radius: 20px;
+                margin-top: 20px;
+                font-weight: 600;
+                font-family: var( --fontfirst);
+                cursor:pointer;
+            }
+            .quiz-answer:hover{
+                opacity:0.9;
+            }
+        </style>
     </head>
 
     <body>
@@ -50,25 +93,16 @@ if (!isset($_SESSION["user"])) {
                 </nav>
                 </header>
                     <div id="headline-panel" class="headline-section">
-                        <?php
-                            echo "<h1 class='headline' id='headline_panel'>Witaj {$_SESSION['user_nickname']}, miło cię widzieć ;)</h1>";
-                            echo '<a href="profile.php"><button class="btn-join-2">Mój Profil</button></a>';
-                        if ($_SESSION["user_rank"] == "rekrut") {
-                            echo '<a href="whitelistQuiz.php"><button class="btn-join-2">Zdaj na white-list</button></a>';
-                        } else {
-                            echo '<a href="https://discord.gg/WYq74GqehK" target="_blank"><button class="btn-join-2">Dołącz na serwer</button></a>';
-                        }
-                        if ($_SESSION["user_rank"] == "administrator") {
-                            echo '<a href="#"><button class="btn-join-2">Zarządzaj podaniami</button></a>';
-                            echo '<a href="manageUsers.php"><button class="btn-join-2">Zarządzaj graczami</button></a>';
-                        }
-                        ?>
+                        <div class="quiz">
+                            <h2 id="question">Question 1:</h2>
+                            <div class="quiz-btns">
+                                <button class="quiz-answer">Answer 1</button>
+                                <button class="quiz-answer">Answer 2</button>
+                                <button class="quiz-answer">Answer 3</button>
+                                <button class="quiz-answer">Answer 4</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="container-car">
-
-                    </div>
-
-
             </div>
 
 
