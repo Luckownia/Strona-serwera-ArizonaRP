@@ -32,6 +32,7 @@ if (!isset($_SESSION["user"])) {
                 justify-content:center;
                 align-items:center;
                 flex-direction:column;
+                margin-top: 20px;
             }
             .quiz-btns{
                 display:flex;
@@ -43,11 +44,9 @@ if (!isset($_SESSION["user"])) {
             }
 
             .quiz-answer{
-                margin-bottom: 20px;
                 padding: 25px 80px;
                 border: none;
                 font-size: 22px;
-                text-transform: uppercase;
                 color: var(--seventhcolor);
                 background-color: var(--eightcolor);
                 border-radius: 20px;
@@ -56,8 +55,23 @@ if (!isset($_SESSION["user"])) {
                 font-family: var( --fontfirst);
                 cursor:pointer;
             }
-            .quiz-answer:hover{
+            .quiz-answer:hover,.next-btn:hover{
                 opacity:0.9;
+            }
+            .next-btn{
+                margin-top: 20px;
+                align-self:flex-end;
+                padding: 20px 30px;
+                border: none;
+                font-size: 20px;
+                font-family: var(--fontfirst);
+                cursor:pointer;
+                color: var(--seventhcolor);
+                background-color: var(--eightcolor);
+                border-radius:10px;
+                font-weight: 600;
+                letter-spacing:1px;
+                text-transform: uppercase;
             }
         </style>
     </head>
@@ -83,12 +97,7 @@ if (!isset($_SESSION["user"])) {
                         <button class="hamburger">
                          <span class="pasek1"></span>
                         </button>
-                        <ul class="navigation">
-                            <li> <a href="index.php" class="nav-link"> Główna</a> </li>
-                            <li> <a href="logout.php" class="nav-link"> Wyloguj się</a> </li>
-                            <li> <a href="panel.php" class="nav-link active"> Panel</a> </li>
-                        </ul>
-
+                        <a href="#" class="nav-link active"> WhitelistQuiz</a>
                     </div>
                 </nav>
                 </header>
@@ -101,6 +110,7 @@ if (!isset($_SESSION["user"])) {
                                 <button class="quiz-answer">Answer 3</button>
                                 <button class="quiz-answer">Answer 4</button>
                             </div>
+                            <button class="next-btn">Next</button>
                         </div>
                     </div>
             </div>
