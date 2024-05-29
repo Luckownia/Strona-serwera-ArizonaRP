@@ -184,23 +184,23 @@ if (!isset($_SESSION["user"])) {
                                 <button class="quiz-answer">Answer 4</button>
                             </div>
                             <button class="next-btn">Next</button>
-                            <button class="toQuestion hidden">Czesc Pytan otwartych</button>
+                            <button class="toQuestion hidden">Część pytań otwartych</button>
                         </div>
                         <form action="whitelistQuiz.php" method="post" class="form-question" id="quizForm">
                             <div class="field" id="question1">
-                                <h2>Objasnij co to znaczy JG</h2>
+                                <h2>Podaj imię i nazwisko swojej postaci.</h2>
                                 <textarea name="answer1" required></textarea>
                                 <button class ="next-question" type="button" onclick="nextQuestion(2)">Dalej</button>
                             </div>
                             
                             <div class="field hidden" id="question2">
-                                <h2>Czy Robert Lewandowski to najwiekszy Polak?</h2>
+                                <h2>Napisz historię swojej postaci. (min. 200 słów)</h2>
                                 <textarea name="answer2" required></textarea>
                                 <button class ="next-question" type="button" onclick="nextQuestion(3)">Dalej</button>
                             </div>
                             
                             <div class="field hidden" id="question3">
-                                <h2>Czy FC Barcelona to najlepszy klub?</h2>
+                                <h2>Napisz kreatywną akcję RP z udziałem twojej postaci. (min. 100 słów) </h2>
                                 <textarea name="answer3" required></textarea>
                                 <input type="submit" value="Prześlij" name="send">
                             </div>
@@ -214,21 +214,93 @@ if (!isset($_SESSION["user"])) {
             <script>
                 const questions = [
                     {
-                        question:"Czy Ziemia jest Płaska?",
+                        question:"Jeżeli ktoś celowo ucieka do zielonej strefy, aby uniknąć akcji RP dozwolone jest kontynuowanie akcji, która została rozpoczęta poza GZ?",
                         answers:[
                             {text:"Tak",correct:false},
-                            {text:"Nie",correct:true},
-                            {text:"Bycmoze",correct:false},
-                            {text:"Jeszcze jak",correct:false}
+                            {text:"Nie",correct:false},
+                            {text:"Tak (oprócz komendy głównej oraz szpitala)",correct:true},
+                            {text:"Nie, chyba że akcja jest hostylna",correct:false}
                         ]
                     },
                     {
-                        question:"Czy Ziemia jest Okragla?",
+                        question:"Do czego służy przycisk Z?",
+                        answers:[
+                            {text:"Do sprawdzenia ID gracza łamiącego regulamin",correct:true},
+                            {text:"Do sprawdzenia ile jest graczy na serwerze",correct:false},
+                            {text:"Do zobaczenia czy ktoś jest w pobliżu",correct:false},
+                            {text:"Do zaspamienia czatu",correct:false}
+                        ]
+                    },
+                    {
+                        question:"Czy za pomocą komendy /do można kłamać?",
                         answers:[
                             {text:"Tak",correct:false},
                             {text:"Nie",correct:true},
-                            {text:"Bycmoze",correct:false},
-                            {text:"Jeszcze jak",correct:false}
+                            {text:"Tylko jeżeli jest to dobrze usprawiedliwione",correct:false},
+                            {text:"Tak, ale tylko gdy inny gracz używa MG",correct:true}
+                        ]
+                    },
+                    {
+                        question:"Czy możesz rozpoznać zamaskowaną osobę po głosie albo kolorze skóry??",
+                        answers:[
+                            {text:"Nie",correct:true},
+                            {text:"Tak",correct:false},
+                            {text:"Tak, jeżeli dużo czasu spędzałeś z tą osobą",correct:false},
+                            {text:"Tak, jeżeli jest to osoba publicznie znana",correct:true}
+                        ]
+                    },
+                    {
+                        question:"Kiedy można przeszukać innego gracza?",
+                        answers:[
+                            {text:"Kiedy stoi AFK i go skujemy",correct:false},
+                            {text:"Po zastrzeleniu go bez inicjacji",correct:false},
+                            {text:"Po inicjacji i skuciu go",correct:true},
+                            {text:"Kiedy jest nieprzytomny, a my nie uczestniczyliśmy w akcji",correct:false}
+                        ]
+                    },
+                    {
+                        question:"Ilu niepodstawionych zakładników potrzeba aby zorganizować napad?",
+                        answers:[
+                            {text:"3",correct:false},
+                            {text:"0",correct:true},
+                            {text:"2",correct:false},
+                            {text:"1",correct:true}
+                        ]
+                    },
+                    {
+                        question:"Co mozesz wziac od nieprzytomnego policjanta?",
+                        answers:[
+                            {text:"Pałkę",correct:false},
+                            {text:"Nic",correct:true},
+                            {text:"Latarkę",correct:false},
+                            {text:"Tazer",correct:false}
+                        ]
+                    },
+                    {
+                        question:"Co jest głównym wyznacznikiem tego, czy pojazd nadaje się do jazdy terenowej?",
+                        answers:[
+                            {text:"Przystosowanie pojazdu do poruszania się po nieubitej nawierzchni",correct:true},
+                            {text:"Typ opon",correct:false},
+                            {text:"Marka pojazdu",correct:false},
+                            {text:"Rok produkcji pojazdu",correct:false}
+                        ]
+                    },
+                    {
+                        question:"Jakie zachowanie obywatela usprawiedliwia użycie PG przez medyków?",
+                        answers:[
+                            {text:"Poprawne wylegitymowanie się",correct:false},
+                            {text:"Wykonywane poleceń",correct:false},
+                            {text:"Wykazywanie nadmiernej agresji słownej",correct:true},
+                            {text:"Medycy nie mogą użyć PG",correct:false}
+                        ]
+                    },
+                    {
+                        question:"Czy policja może zatrzymać w szpitalu obywatela po BW?",
+                        answers:[
+                            {text:"Tak",correct:false},
+                            {text:"Nie",correct:false},
+                            {text:"Tylko gdy obywatel łamie regulamin",correct:false},
+                            {text:"Tylko jeżeli obywatel uniknął akcji RP poprzez odrodzeie się w szpitalu",correct:true}
                         ]
                     }
                 ];
@@ -283,15 +355,19 @@ if (!isset($_SESSION["user"])) {
                         showQuestion();
                         
                     } else {
-                        if(score>=1)
+                        if(score>=8)
                         {
-                            quizQuestion.textContent = "Gratulujemy zdania 1 czesci zapraszamy na nastepna! Twój wynik: " + score;
+                            quizQuestion.textContent = "Gratulujemy zdania 1 czesci zapraszamy na nastepna! Twój wynik: " + score*10 + "%";
                             quizAnswers.forEach(button => button.style.display = 'none');
                             nextBtn.style.display = 'none';
                             btnToQuestions.classList.remove("hidden");
                         }
                         else{
-                            quizQuestion.textContent = "Niestety nie udało ci sie zdać :( Twój wynik: " + score;
+                            quizQuestion.textContent = "Niestety nie udało ci sie zdać, zapraszamy jutro. Twój wynik: " + score*10 + "%";
+                            quizAnswers.forEach(button => button.style.display = 'none');
+                            nextBtn.style.display = 'none';
+                            btnToQuestions.innerHTML = "Powrót";
+                            btnToQuestions.classList.remove("hidden");
                         }
                     }
                 });
