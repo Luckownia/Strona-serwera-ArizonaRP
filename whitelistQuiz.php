@@ -119,14 +119,54 @@ if (!isset($_SESSION["user"])) {
             <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
             <script src="script-2.js"></script>
             <script>
-                const headline_panel = document.querySelector("#headline_panel");
-                headline_panel.addEventListener("mouseenter", animateCursor);
-                headline_panel.addEventListener("mouseleave", removeAnimateCursor);
+                const questions = [
+                    {
+                        question:"Czy Ziemia jest Płaska?",
+                        answers:[
+                            {text:"Tak",correct:false},
+                            {text:"Nie",correct:true},
+                            {text:"Bycmoze",correct:false},
+                            {text:"Jeszcze jak",correct:false}
+                        ]
+                    },
+                    {
+                        question:"Czy Ziemia jest Okragla?",
+                        answers:[
+                            {text:"Tak",correct:false},
+                            {text:"Nie",correct:true},
+                            {text:"Bycmoze",correct:false},
+                            {text:"Jeszcze jak",correct:false}
+                        ]
+                    }
+                ];
+                const quizQuestion = document.querySelector('#question');
+                const quizAnswers = document.querySelectorAll('.quiz-answer');
+                const nextBtn = document.querySelector('.next-btn');
 
-                const all_btn = document.querySelectorAll(".btn-join-2");
-                all_btn.forEach(btn => {
-                    btn.addEventListener("mouseenter", animateCursor);
-                    btn.addEventListener("mouseleave", removeAnimateCursor);
+                let currentIndex = 0;
+                let score = 0;
+
+                function showQuestion() {
+                    let currentQuestion = questions[currentIndex];
+                    let questionNo = currentIndex + 1;
+                    quizQuestion.textContent = questionNo + ". " + currentQuestion.question;
+
+                    quizAnswers.forEach((button, index) => {
+                        button.textContent = currentQuestion.answers[index].text;
+                    });
+                }
+
+                showQuestion();
+
+                nextBtn.addEventListener('click', () => {
+                    currentIndex++;
+                    if (currentIndex < questions.length) {
+                        showQuestion();
+                    } else {
+                        quizQuestion.textContent = "Koniec quizu! Twój wynik: " + score;
+                        quizAnswers.forEach(button => button.style.display = 'none');
+                        nextBtn.style.display = 'none';
+                    }
                 });
             </script>
 
