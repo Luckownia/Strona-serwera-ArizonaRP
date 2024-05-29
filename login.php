@@ -27,7 +27,7 @@ if (isset($_SESSION["user"])) {
                     <div class="navbar">
                         <div class="logo">
                             <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
-                            <a href="#" class="logo-link">ArizonaRP</a>
+                            <a href="index.php" class="logo-link">ArizonaRP</a>
                         </div>
                         <label class="switch-mode-container">
                             <input type="checkbox" class="switch-mode-checkbox">

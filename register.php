@@ -18,7 +18,7 @@
             <div class="navbar">
                 <div class="logo">
                     <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
-                    <a href="#" class="logo-link">ArizonaRP</a>
+                    <a href="index.php" class="logo-link">ArizonaRP</a>
                 </div>
                 <label class="switch-mode-container">
                     <input type="checkbox" class="switch-mode-checkbox">
@@ -81,6 +81,20 @@
             }
         } else {
             die("Coś poszło nie tak przy sprawdzaniu emaila");
+        }
+        // Sprawdzenie, czy nick już istnieje
+        $sql = "SELECT * FROM users WHERE nickname = ?";
+        $stmt = mysqli_stmt_init($conn);
+        if (mysqli_stmt_prepare($stmt, $sql)) {
+            mysqli_stmt_bind_param($stmt, "s", $nickname);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $rowCount = mysqli_num_rows($result);
+            if ($rowCount > 0) {
+                array_push($errors, "Konto z takim nickiem już istnieje!");
+            }
+        } else {
+            die("Coś poszło nie tak przy sprawdzaniu nicku");
         }
 
         // Wyświetlanie błędów lub dodawanie użytkownika do bazy danych

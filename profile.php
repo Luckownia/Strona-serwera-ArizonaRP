@@ -14,6 +14,14 @@ if (!isset($_SESSION["user"])) {
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        #deleteAccountButton {
+            background-color: red; /* Kolor tła po najechaniu */
+        }
+        #deleteAccountButton:hover{
+            background-color: #d30f0f; /* Kolor tła po najechaniu */
+        }
+    </style>
 </head>
 <body>
     <span class="mouse"></span>
@@ -23,7 +31,7 @@ if (!isset($_SESSION["user"])) {
                 <div class="navbar">
                     <div class="logo">
                         <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
-                        <a href="#" class="logo-link">ArizonaRP</a>
+                        <a href="index.php" class="logo-link">ArizonaRP</a>
                     </div>
                     <label class="switch-mode-container">
                         <input type="checkbox" class="switch-mode-checkbox">
@@ -94,41 +102,64 @@ if (!isset($_SESSION["user"])) {
                     <input type="submit" value="Zmień" name="profile_submit">
                 </div>
             </form>
-
+            
+            <button class="btn-join-2" id="deleteAccountButton">Usuń konto</button>
             <a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>
         </div>
-    </div>
+        <div class="container-car">
+            <h1 class='headline' id="rank">Ranga  </h1>
+            <?php echo "<h1 class='sub-headline' id='rank_con'>Ranga: {$_SESSION['user_rank']}</h1>";?>
+            <p class="sub-headline">Jakies zdjecie rangi czy odznaki</p>
+        </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script-2.js"></script>
-    <script>
-        const nick_profile = document.querySelector("#panel_nick");
-        nick_profile.addEventListener("mouseenter", animateCursor);
-        nick_profile.addEventListener("mouseleave", removeAnimateCursor);
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script src="script-2.js"></script>
+        <script>
+            const nick_profile = document.querySelector("#panel_nick");
+            nick_profile.addEventListener("mouseenter", animateCursor);
+            nick_profile.addEventListener("mouseleave", removeAnimateCursor);
 
-        const panel_rank = document.querySelector("#panel_rank");
-        panel_rank.addEventListener("mouseenter", animateCursor);
-        panel_rank.addEventListener("mouseleave", removeAnimateCursor);
+            const panel_rank = document.querySelector("#panel_rank");
+            panel_rank.addEventListener("mouseenter", animateCursor);
+            panel_rank.addEventListener("mouseleave", removeAnimateCursor);
 
-        const panel_email = document.querySelector("#panel_email");
-        panel_email.addEventListener("mouseenter", animateCursor);
-        panel_email.addEventListener("mouseleave", removeAnimateCursor);
+            const panel_email = document.querySelector("#panel_email");
+            panel_email.addEventListener("mouseenter", animateCursor);
+            panel_email.addEventListener("mouseleave", removeAnimateCursor);
 
-        const field = document.querySelector(".field");
-        field.addEventListener("mouseenter", animateCursor);
-        field.addEventListener("mouseleave", removeAnimateCursor);
+            const field = document.querySelector(".field");
+            field.addEventListener("mouseenter", animateCursor);
+            field.addEventListener("mouseleave", removeAnimateCursor);
 
-        const btn_back = document.querySelector("#btn_back");
-        btn_back.addEventListener("mouseenter", animateCursor);
-        btn_back.addEventListener("mouseleave", removeAnimateCursor);
+            const btn_back = document.querySelector("#btn_back");
+            btn_back.addEventListener("mouseenter", animateCursor);
+            btn_back.addEventListener("mouseleave", removeAnimateCursor);
 
-        const rank_con = document.querySelector("#rank_con");
-        rank_con.addEventListener("mouseenter", animateCursor);
-        rank_con.addEventListener("mouseleave", removeAnimateCursor);
+            const rank_con = document.querySelector("#rank_con");
+            rank_con.addEventListener("mouseenter", animateCursor);
+            rank_con.addEventListener("mouseleave", removeAnimateCursor);
 
-        const rank = document.querySelector("#rank");
-        rank.addEventListener("mouseenter", animateCursor);
-        rank.addEventListener("mouseleave", removeAnimateCursor);
-    </script>
-</body>
+            const rank = document.querySelector("#rank");
+            rank.addEventListener("mouseenter", animateCursor);
+            rank.addEventListener("mouseleave", removeAnimateCursor);
+
+            document.getElementById('deleteAccountButton').addEventListener('click', function () {
+                if (confirm('Czy na pewno chcesz usunąć swoje konto?')) {
+                    fetch('deleteAccount.php', {
+                        method: 'POST'
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === 'success') {
+                            alert('Twoje konto zostało pomyślnie usunięte.');
+                            window.location.href = 'index.php'; // Przekierowanie na stronę główną
+                        } else {
+                            alert('Wystąpił błąd podczas usuwania konta: ' + data);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            });
+        </script>
+    </body>
 </html>
