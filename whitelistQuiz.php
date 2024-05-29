@@ -44,7 +44,7 @@ if (!isset($_SESSION["user"])) {
             }
 
             .quiz-answer{
-                padding: 25px 80px;
+                padding: 20px 80px;
                 border: none;
                 font-size: 22px;
                 color: var(--seventhcolor);
@@ -54,6 +54,8 @@ if (!isset($_SESSION["user"])) {
                 font-weight: 600;
                 font-family: var( --fontfirst);
                 cursor:pointer;
+                border:5px solid var(--eightcolor);
+
             }
             .quiz-answer:hover,.next-btn:hover{
                 opacity:0.9;
@@ -72,6 +74,17 @@ if (!isset($_SESSION["user"])) {
                 font-weight: 600;
                 letter-spacing:1px;
                 text-transform: uppercase;
+            }
+            .clicked-answer{
+                border:5px solid yellow;
+            }
+
+            .error-message {
+                color: red;
+                font-size: 18px;
+                margin-top: 10px;
+                font-weight:600;
+                display:none;
             }
         </style>
     </head>
@@ -104,6 +117,7 @@ if (!isset($_SESSION["user"])) {
                     <div id="headline-panel" class="headline-section">
                         <div class="quiz">
                             <h2 id="question">Question 1:</h2>
+                            <div class="error-message" id="error-message">Proszę zaznaczyć odpowiedź!</div>
                             <div class="quiz-btns">
                                 <button class="quiz-answer">Answer 1</button>
                                 <button class="quiz-answer">Answer 2</button>
@@ -152,22 +166,59 @@ if (!isset($_SESSION["user"])) {
                     quizQuestion.textContent = questionNo + ". " + currentQuestion.question;
 
                     quizAnswers.forEach((button, index) => {
+                        //reset active status
+                        quizAnswers.forEach(answer => {
+                                answer.classList.remove("clicked-answer");
+                        });
                         button.textContent = currentQuestion.answers[index].text;
+                        //Status active when click answer
+                        button = document.querySelectorAll('.quiz-answer')[index];
+                        button.addEventListener("click", () => {
+                            quizAnswers.forEach(answer => {
+                                answer.classList.remove("clicked-answer");
+                            });
+                            button.classList.add("clicked-answer");
+                            button.dataset.correct = currentQuestion.answers[index].correct;
+                        });
                     });
                 }
 
                 showQuestion();
 
                 nextBtn.addEventListener('click', () => {
+
+                    const selectedAnswer = document.querySelector('.quiz-answer.clicked-answer');
+                    const errorMessage = document.querySelector('.error-message');
+                        if (!selectedAnswer) {
+                            errorMessage.style.display = 'block'; 
+                            return;
+                        }
+
+                        if (selectedAnswer.dataset.correct === "true") {
+                            score++;
+                        }
+                        errorMessage.style.display = 'none'; 
                     currentIndex++;
                     if (currentIndex < questions.length) {
                         showQuestion();
+                        
                     } else {
-                        quizQuestion.textContent = "Koniec quizu! Twój wynik: " + score;
+                        if(score>=1)
+                        {
+                            quizQuestion.textContent = "Gratulujemy zdania 1 czesci zapraszamy na nastepna! Twój wynik: " + score;
+                        }
+                        else{
+                            quizQuestion.textContent = "Niestety nie udało ci sie zdać :( Twój wynik: " + score;
+                        }
+
                         quizAnswers.forEach(button => button.style.display = 'none');
                         nextBtn.style.display = 'none';
                     }
                 });
+
+
+                
+         
             </script>
 
     </body>
