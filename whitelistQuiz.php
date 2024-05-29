@@ -57,10 +57,10 @@ if (!isset($_SESSION["user"])) {
                 border:5px solid var(--eightcolor);
 
             }
-            .quiz-answer:hover,.next-btn:hover{
+            .quiz-answer:hover,.next-btn:hover,.toQuestion:hover{
                 opacity:0.9;
             }
-            .next-btn{
+            .next-btn,.toQuestion{
                 margin-top: 20px;
                 align-self:flex-end;
                 padding: 20px 30px;
@@ -85,6 +85,65 @@ if (!isset($_SESSION["user"])) {
                 margin-top: 10px;
                 font-weight:600;
                 display:none;
+            }
+            .form-question{
+                width: 500px;
+                background: var(--fourthcolor);
+                border-radius: 15px;
+                box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-family: "Open Sans", sans-serif;
+                padding:30px 60px;
+                display:none;
+            }
+            .form-question input,textarea,.next-question{
+                height: 100%;
+                width: 100%;
+                outline: none;
+                font-size: 17px;
+                padding-left: 20px;
+                padding-top: 10px;
+                border: 1px solid lightgrey;
+                border-radius: 25px;
+                transition: all 0.3s ease;
+                margin-bottom: 20px;
+                margin-top: 20px;
+            }
+
+            .form-question textarea{
+                min-height:200px;
+                border:5px solid var(--firstcolor);
+            }
+
+            .field input[type="submit"],.next-question {
+                color: var(--seventhcolor);
+                border: none;
+                padding:10px 20px;
+                font-size: 20px;
+                font-weight: 500;
+                cursor: pointer;
+                background: var(--thirdcolor);
+                transition: all 0.3s ease;
+                border-radius: 25px;
+            }
+            .field input[type="submit"]:hover,.next-question:hover{
+                transform:scale(1.05);
+                box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-question h2{
+                color: var(--firstcolor);
+                font-weight: 600;
+                font-size: 30px;
+                pointer-events: none;
+                margin-bottom: 20px;
+            }
+
+            .hidden {
+                display: none;
             }
         </style>
     </head>
@@ -125,7 +184,27 @@ if (!isset($_SESSION["user"])) {
                                 <button class="quiz-answer">Answer 4</button>
                             </div>
                             <button class="next-btn">Next</button>
+                            <button class="toQuestion hidden">Czesc Pytan otwartych</button>
                         </div>
+                        <form action="whitelistQuiz.php" method="post" class="form-question" id="quizForm">
+                            <div class="field" id="question1">
+                                <h2>Objasnij co to znaczy JG</h2>
+                                <textarea name="answer1" required></textarea>
+                                <button class ="next-question" type="button" onclick="nextQuestion(2)">Dalej</button>
+                            </div>
+                            
+                            <div class="field hidden" id="question2">
+                                <h2>Czy Robert Lewandowski to najwiekszy Polak?</h2>
+                                <textarea name="answer2" required></textarea>
+                                <button class ="next-question" type="button" onclick="nextQuestion(3)">Dalej</button>
+                            </div>
+                            
+                            <div class="field hidden" id="question3">
+                                <h2>Czy FC Barcelona to najlepszy klub?</h2>
+                                <textarea name="answer3" required></textarea>
+                                <input type="submit" value="Prześlij" name="send">
+                            </div>
+                        </form>
                     </div>
             </div>
 
@@ -156,6 +235,7 @@ if (!isset($_SESSION["user"])) {
                 const quizQuestion = document.querySelector('#question');
                 const quizAnswers = document.querySelectorAll('.quiz-answer');
                 const nextBtn = document.querySelector('.next-btn');
+                const btnToQuestions = document.querySelector(".toQuestion");
 
                 let currentIndex = 0;
                 let score = 0;
@@ -206,19 +286,39 @@ if (!isset($_SESSION["user"])) {
                         if(score>=1)
                         {
                             quizQuestion.textContent = "Gratulujemy zdania 1 czesci zapraszamy na nastepna! Twój wynik: " + score;
+                            quizAnswers.forEach(button => button.style.display = 'none');
+                            nextBtn.style.display = 'none';
+                            btnToQuestions.classList.remove("hidden");
                         }
                         else{
                             quizQuestion.textContent = "Niestety nie udało ci sie zdać :( Twój wynik: " + score;
                         }
-
-                        quizAnswers.forEach(button => button.style.display = 'none');
-                        nextBtn.style.display = 'none';
                     }
                 });
 
+                //FORM WITH OPEN QUESTIONS 
+                function nextQuestion(questionNumber) {
+                        // Ukryj wszystkie pytania
+                        document.querySelectorAll('.form-question .field').forEach(function(field) {
+                            field.classList.add('hidden');
+                        });
 
-                
-         
+                        // Pokaż następne pytanie
+                        document.getElementById('question' + questionNumber).classList.remove('hidden');
+                    }
+
+                btnToQuestions.addEventListener('click',()=>{
+                    const formQuestion = document.querySelector('.form-question');
+                    const quizQuestion = document.querySelector('.quiz');
+                    formQuestion.style.display='block';
+                    quizQuestion.style.display='none';
+
+                    //FORM
+
+                    document.getElementById('quizForm').addEventListener('submit', function(event) {
+                        alert("Udało się przesłać formularz");
+                    });
+            });
             </script>
 
     </body>
