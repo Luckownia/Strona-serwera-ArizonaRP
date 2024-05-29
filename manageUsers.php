@@ -172,7 +172,7 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2 id="rank-user-nickname">Wybierz nową rangę dla:</h2>
-        <form id="changeRankForm" action="update_rank.php" method="post">
+        <form id="changeRankForm" action="updateRank.php" method="post">
             <input type="hidden" id="userId" name="userId">
             <select id="newRankSelect" name="newRank"> <!-- Dodanie atrybutu name -->
                 <option value="rekrut">Rekrut</option>
@@ -212,26 +212,26 @@
         </nav>
     </header>
     <div id="headline-manage" class="headline-section">
-        <?php
-        require 'database.php';
-        $sql = "SELECT id, nickname, rank FROM users";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            echo "<table border='1' id='users-table'>";
-            echo "<tr><th>Nazwa użytkownika</th><th>Ranga</th></tr>";
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr data-user-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-user-nickname='" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "'>";
-                echo "<td>" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "</td>";
-                echo "<td>" . htmlspecialchars($row['rank'], ENT_QUOTES, 'UTF-8') . "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "Błąd: " . mysqli_error($conn);
-        }
-        echo '<a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>';
-        mysqli_close($conn);
-        ?>
+    <?php
+require 'database.php';
+$sql = "SELECT id, nickname, rank FROM users";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    echo "<table border='1' id='users-table'>";
+    echo "<tr><th>Nazwa użytkownika</th><th>Ranga</th></tr>"; // Dodano kolumnę Akcje
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr data-user-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-user-nickname='" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "'>";
+        echo "<td>" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "</td>";
+        echo "<td>" . htmlspecialchars($row['rank'], ENT_QUOTES, 'UTF-8') . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    echo "Błąd: " . mysqli_error($conn);
+}
+echo '<a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>';
+mysqli_close($conn);
+?>
     </div>
 
     <div class="container-car">
@@ -256,93 +256,137 @@ mysqli_close($conn);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="script-2.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const table = document.getElementById('users-table');
-        const containerCar = document.querySelector('.container-car');
-        const userDetails = document.querySelector('.user-details');
-        const modal = document.getElementById('changeRankModal');
-        const userIdInput = document.getElementById('userId');
-        const form = document.getElementById('changeRankForm');
-        const rankChangeButton = document.getElementById('rankChangeButton');
-        const rankUserNickname = document.getElementById('rank-user-nickname');
-        let userId = null;
+   document.addEventListener('DOMContentLoaded', function () {
+    const table = document.getElementById('users-table');
+    const containerCar = document.querySelector('.container-car');
+    const userDetails = document.querySelector('.user-details');
+    const modal = document.getElementById('changeRankModal');
+    const userIdInput = document.getElementById('userId');
+    const form = document.getElementById('changeRankForm');
+    const rankChangeButton = document.getElementById('rankChangeButton');
+    const rankUserNickname = document.getElementById('rank-user-nickname');
+    let userId = null;
 
-        table.addEventListener('click', function (event) {
-            let target = event.target;
-            while (target && target.nodeName !== 'TR') {
-                target = target.parentElement;
-            }
-            if (target) {
-                const userNickname = target.getAttribute('data-user-nickname');
-                userId = target.getAttribute('data-user-id');
-                if (userNickname) {
-                    userDetails.style.visibility = 'visible';
-                    userDetails.querySelector('.user-nickname').innerHTML = 'Zarządzasz użytkownikiem: ' + userNickname;
-                    const buttons = containerCar.querySelectorAll('.userOptions');
-                    buttons.forEach(button => {
-                        button.style.display = 'block';
-                    });
-                    rankUserNickname.innerHTML= 'Zmień rangę dla: ' + userNickname;
-                }
-            }
-        });
-
-        rankChangeButton.addEventListener('click', function() {
-            const userId = this.dataset.userId;
-            userIdInput.value = userId;
-            modal.style.display = 'block';
-        });
-
-        form.addEventListener('submit', function () {
-            // Po przesłaniu formularza strona zostanie odświeżona automatycznie
-        });
-
-        const closeModal = document.querySelector('.close');
-
-        function closeModalFunc() {
-            modal.style.display = 'none';
+    table.addEventListener('click', function (event) {
+        let target = event.target;
+        while (target && target.nodeName !== 'TR') {
+            target = target.parentElement;
         }
+        if (target) {
+            const userNickname = target.getAttribute('data-user-nickname');
+            userId = target.getAttribute('data-user-id');
+            if (userNickname) {
+                userDetails.style.visibility = 'visible';
+                userDetails.querySelector('.user-nickname').innerHTML = 'Zarządzasz użytkownikiem: ' + userNickname;
+                const buttons = containerCar.querySelectorAll('.userOptions');
+                buttons.forEach(button => {
+                    button.style.display = 'block';
+                    button.setAttribute('data-user-id', userId); // Przypisanie ID użytkownika do przycisku
+                });
+                rankUserNickname.innerHTML = 'Zmień rangę dla: ' + userNickname;
+            }
+        }
+    });
 
-        closeModal.addEventListener('click', closeModalFunc);
+    rankChangeButton.addEventListener('click', function() {
+        userIdInput.value = this.getAttribute('data-user-id'); // Pobranie ID użytkownika z atrybutu data-user-id
+        modal.style.display = 'block';
+    });
 
-        window.addEventListener('click', function(event) {
-            if (event.target == modal) {
-                closeModalFunc();
+    const userDeleteButtons = document.querySelectorAll('.userDelete');
+    userDeleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const userId = this.getAttribute('data-user-id');
+            if (confirm('Czy na pewno chcesz usunąć tego użytkownika?')) {
+                fetch(`deleteUsers.php?id=${userId}`, {
+                    method: 'GET'
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'success') {
+                        location.reload();
+                    } else {
+                        alert('Wystąpił błąd podczas usuwania użytkownika.');
+                    }
+                });
             }
         });
+    });
 
-        function changeUserRank() {
-            const newRank = document.getElementById('newRankSelect').value;
-            console.log('Nowa ranga:', newRank);
+    form.addEventListener('submit', function () {
+        // Po przesłaniu formularza strona zostanie odświeżona automatycznie
+    });
+
+    const closeModal = document.querySelector('.close');
+
+    function closeModalFunc() {
+        modal.style.display = 'none';
+    }
+
+    closeModal.addEventListener('click', closeModalFunc);
+
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
             closeModalFunc();
         }
-
-        document.getElementById('confirmRankChange').addEventListener('click', changeUserRank);
-
-        //Najezdzenie myszka 
-        const user_nickname = document.querySelector(".user-nickname");
-        user_nickname.addEventListener("mouseenter", animateCursor);
-        user_nickname.addEventListener("mouseleave", removeAnimateCursor);
-        
-        //Czy do wywalenia to najezdzenie na przyciski kursor?
-        const btn_join = document.querySelector("#rankChangeButton");
-        btn_join.addEventListener("mouseenter", animateCursor);
-        btn_join.addEventListener("mouseleave", removeAnimateCursor);
-
-        const btn_del = document.querySelector(".userDelete");
-        btn_del.addEventListener("mouseenter", animateCursor);
-        btn_del.addEventListener("mouseleave", removeAnimateCursor);
-
-        const btn_back = document.querySelector("#btn_back");
-        btn_back.addEventListener("mouseenter", animateCursor);
-        btn_back.addEventListener("mouseleave", removeAnimateCursor);
-
-        const users_table = document.querySelector("#users-table");
-        users_table.addEventListener("mouseenter", animateCursor);
-        users_table.addEventListener("mouseleave", removeAnimateCursor);
-
-
     });
+
+    function changeUserRank() {
+        const newRank = document.getElementById('newRankSelect').value;
+        console.log('Nowa ranga:', newRank);
+        closeModalFunc();
+    }
+
+    document.getElementById('confirmRankChange').addEventListener('click', changeUserRank);
+
+    // Najezdzenie myszka 
+    const user_nickname = document.querySelector(".user-nickname");
+    user_nickname.addEventListener("mouseenter", animateCursor);
+    user_nickname.addEventListener("mouseleave", removeAnimateCursor);
+
+    // Czy do wywalenia to najezdzenie na przyciski kursor?
+    const btn_join = document.querySelector("#rankChangeButton");
+    btn_join.addEventListener("mouseenter", animateCursor);
+    btn_join.addEventListener("mouseleave", removeAnimateCursor);
+
+    const btn_del = document.querySelector(".userDelete");
+    btn_del.addEventListener("mouseenter", animateCursor);
+    btn_del.addEventListener("mouseleave", removeAnimateCursor);
+
+    const btn_back = document.querySelector("#btn_back");
+    btn_back.addEventListener("mouseenter", animateCursor);
+    btn_back.addEventListener("mouseleave", removeAnimateCursor);
+
+    const users_table = document.querySelector("#users-table");
+    users_table.addEventListener("mouseenter", animateCursor);
+    users_table.addEventListener("mouseleave", removeAnimateCursor);
+
+    document.getElementById('changeRankForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Zapobiega domyślnemu działaniu formularza
+
+    const userId = document.getElementById('userId').value;
+    const newRank = document.getElementById('newRankSelect').value;
+
+    fetch('updateRank.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `userId=${userId}&newRank=${newRank}`
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === 'success') {
+            alert('Ranga została zmieniona pomyślnie.');
+            location.reload(); // Odśwież stronę, aby zobaczyć zmiany
+        } else {
+            alert('Wystąpił błąd podczas zmiany rangi: ' + data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+});
+
 </script>
 </body>
 </html>
