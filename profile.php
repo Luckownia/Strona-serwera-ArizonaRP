@@ -17,6 +17,10 @@ if (!isset($_SESSION["user"])) {
     <style>
         #deleteAccountButton {
             background-color: red; /* Kolor tła po najechaniu */
+            width: 180px;
+            padding: 15px 20px;
+            font-size: 18px;
+            margin-bottom: 30px;
         }
         #deleteAccountButton:hover{
             background-color: #d30f0f; /* Kolor tła po najechaniu */
