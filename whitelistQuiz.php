@@ -2,6 +2,40 @@
 session_start();
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
+    exit();
+}
+
+require 'database.php'; // Wczytaj połączenie z bazą danych
+
+// Przetwarzanie formularza
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Odczytaj odpowiedzi z formularza
+    $answer1 = $_POST['answer1'];
+    $answer2 = $_POST['answer2'];
+    $answer3 = $_POST['answer3'];
+
+    // Tutaj możesz dodać kod do przetwarzania odpowiedzi, np. zapisywanie do bazy danych
+
+    // Zaktualizuj rangę użytkownika
+    $_SESSION['user_rank'] = 'Oczekuję';
+
+    // Zaktualizuj rangę w bazie danych
+    $stmt = $conn->prepare("UPDATE users SET rank = ? WHERE id = ?");
+    $rank = 'Oczekuję';
+    $stmt->bind_param("si", $rank, $_SESSION['user_id']);
+    $stmt->execute();
+
+    // Sprawdź, czy zapytanie zostało wykonane poprawnie
+    if ($stmt->affected_rows > 0) {
+        // Przekieruj użytkownika na panel.php
+        header("Location: panel.php");
+        exit();
+    } else {
+        echo "Wystąpił błąd podczas aktualizacji rangi.";
+    }
+    
+    $stmt->close();
+    $conn->close();
 }
 ?>
 <!DOCTYPE html lang="pl">
@@ -237,7 +271,7 @@ if (!isset($_SESSION["user"])) {
                             {text:"Tak",correct:false},
                             {text:"Nie",correct:true},
                             {text:"Tylko jeżeli jest to dobrze usprawiedliwione",correct:false},
-                            {text:"Tak, ale tylko gdy inny gracz używa MG",correct:true}
+                            {text:"Tak, ale tylko gdy inny gracz używa MG",correct:false}
                         ]
                     },
                     {
@@ -246,7 +280,7 @@ if (!isset($_SESSION["user"])) {
                             {text:"Nie",correct:true},
                             {text:"Tak",correct:false},
                             {text:"Tak, jeżeli dużo czasu spędzałeś z tą osobą",correct:false},
-                            {text:"Tak, jeżeli jest to osoba publicznie znana",correct:true}
+                            {text:"Tak, jeżeli jest to osoba publicznie znana",correct:false}
                         ]
                     },
                     {
@@ -262,7 +296,7 @@ if (!isset($_SESSION["user"])) {
                         question:"Ilu niepodstawionych zakładników potrzeba aby zorganizować napad?",
                         answers:[
                             {text:"3",correct:false},
-                            {text:"0",correct:true},
+                            {text:"0",correct:false},
                             {text:"2",correct:false},
                             {text:"1",correct:true}
                         ]
@@ -339,38 +373,56 @@ if (!isset($_SESSION["user"])) {
 
                 nextBtn.addEventListener('click', () => {
 
-                    const selectedAnswer = document.querySelector('.quiz-answer.clicked-answer');
-                    const errorMessage = document.querySelector('.error-message');
-                        if (!selectedAnswer) {
-                            errorMessage.style.display = 'block'; 
-                            return;
-                        }
+const selectedAnswer = document.querySelector('.quiz-answer.clicked-answer');
+const errorMessage = document.querySelector('.error-message');
+if (!selectedAnswer) {
+    errorMessage.style.display = 'block';
+    return;
+}
 
-                        if (selectedAnswer.dataset.correct === "true") {
-                            score++;
-                        }
-                        errorMessage.style.display = 'none'; 
-                    currentIndex++;
-                    if (currentIndex < questions.length) {
-                        showQuestion();
-                        
-                    } else {
-                        if(score>=8)
-                        {
-                            quizQuestion.textContent = "Gratulujemy zdania 1 czesci zapraszamy na nastepna! Twój wynik: " + score*10 + "%";
-                            quizAnswers.forEach(button => button.style.display = 'none');
-                            nextBtn.style.display = 'none';
-                            btnToQuestions.classList.remove("hidden");
-                        }
-                        else{
-                            quizQuestion.textContent = "Niestety nie udało ci sie zdać, zapraszamy jutro. Twój wynik: " + score*10 + "%";
-                            quizAnswers.forEach(button => button.style.display = 'none');
-                            nextBtn.style.display = 'none';
-                            btnToQuestions.innerHTML = "Powrót";
-                            btnToQuestions.classList.remove("hidden");
-                        }
-                    }
-                });
+if (selectedAnswer.dataset.correct === "true") {
+    score++;
+}
+errorMessage.style.display = 'none';
+currentIndex++;
+if (currentIndex < questions.length) {
+    showQuestion();
+} else {
+    if (score >= 8) {
+        quizQuestion.textContent = "Gratulujemy zdania 1 czesci zapraszamy na nastepna! Twój wynik: " + score * 10 + "%";
+        quizAnswers.forEach(button => button.style.display = 'none');
+        nextBtn.style.display = 'none';
+        btnToQuestions.classList.remove("hidden");
+    } else {
+        quizQuestion.textContent = "Niestety nie udało ci sie zdać, zapraszamy jutro. Twój wynik: " + score * 10 + "%";
+        quizAnswers.forEach(button => button.style.display = 'none');
+        nextBtn.style.display = 'none';
+        btnToQuestions.innerHTML = "Powrót";
+        btnToQuestions.classList.remove("hidden");
+
+        // Dodajemy event listener na przekierowanie do panel.php
+        btnToQuestions.addEventListener('click', () => {
+            window.location.href = 'panel.php';
+        });
+    }
+}
+});
+
+btnToQuestions.addEventListener('click', () => {
+if (score >= 8) {
+    const formQuestion = document.querySelector('.form-question');
+    const quizQuestion = document.querySelector('.quiz');
+    formQuestion.style.display = 'block';
+    quizQuestion.style.display = 'none';
+
+    // FORM
+
+    document.getElementById('quizForm').addEventListener('submit', function(event) {
+        alert("Udało się przesłać formularz");
+    });
+}
+});
+
 
                 //FORM WITH OPEN QUESTIONS 
                 function nextQuestion(questionNumber) {
