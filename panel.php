@@ -62,6 +62,9 @@ if (!isset($_SESSION["user"])) {
                             echo '<a href="#"><button class="btn-join-2">Zarządzaj podaniami</button></a>';
                             echo '<a href="manageUsers.php"><button class="btn-join-2">Zarządzaj graczami</button></a>';
                         }
+                        if ($_SESSION["user_rank"] == "gracz") {
+                            echo '<a href="request.php"><button class="btn-join-2">Wyślij podanie</button></a>';
+                        }
                         ?>
                     </div>
                     <div class="container-car">
