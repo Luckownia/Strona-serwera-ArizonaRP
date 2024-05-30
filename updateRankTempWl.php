@@ -5,10 +5,13 @@ require 'database.php'; // Upewnij się, że ten plik zawiera połączenie z baz
 // Sprawdź, czy użytkownik jest zalogowany
 if (isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
-    
-    // Zaktualizuj rangę użytkownika
-    $sql = "UPDATE users SET rank = 'Zdaje' WHERE id = '$user_id'";
-    if (mysqli_query($conn, $sql)) {
+    $_SESSION['failed_time'] = date('Y-m-d H:i:s'); // Przypisanie daty do zmiennej sesji
+
+    // Zaktualizuj rangę użytkownika i czas niezdania w bazie danych
+    $sql1 = "UPDATE users SET rank = 'Niezdane' WHERE id = '$user_id'";
+    $sql2 = "UPDATE users SET failed_time = '{$_SESSION['failed_time']}' WHERE id = '$user_id'";
+
+    if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
         // Aktualizacja powiodła się, zaktualizuj sesję
         $_SESSION['user_rank'] = 'Niezdane';
         // Przekieruj użytkownika na stronę quizu

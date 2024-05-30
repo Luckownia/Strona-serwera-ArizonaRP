@@ -14,6 +14,12 @@ $stmt->execute();
 $stmt->bind_result($failed_time);
 $stmt->fetch();
 $stmt->close();
+
+// Sprawdź, czy minął wymagany czas od niezdania
+$retry_time = date('Y-m-d H:i:s', strtotime($failed_time . ' +5 minutes'));
+$current_time = date('Y-m-d H:i:s');
+$can_retry = $current_time >= $retry_time;
+
 $conn->close();
 ?>
 <!DOCTYPE html lang="pl">
@@ -62,8 +68,13 @@ $conn->close();
                 if ($_SESSION["user_rank"] == "rekrut") {
                     echo '<a href="updateRankTempWl.php"><button class="btn-join-2">Zdaj na white-list</button></a>';
                 } else if ($_SESSION["user_rank"] == "Niezdane") {
-                    $retry_time = date('Y-m-d H:i:s', strtotime($failed_time . ' +24 hours'));
-                    echo "<button class='btn-join-2' disabled>Spróbuj ponownie o $retry_time</button>";
+                    if ($can_retry) {
+                        echo '<a href="updateRankTempWl.php"><button class="btn-join-2">Spróbuj ponownie</button></a>';
+                    } else {
+                        echo "<button class='btn-join-2' disabled>Spróbuj ponownie o $retry_time</button>";
+                    }
+                } else if ($_SESSION["user_rank"] == "Oczekuję") {
+                    echo "<button class='btn-join-2' disabled>Twoje podanie oczekuje na weryfikację</button>";
                 } else {
                     echo '<a href="https://discord.gg/WYq74GqehK" target="_blank"><button class="btn-join-2">Dołącz na serwer</button></a>';
                 }

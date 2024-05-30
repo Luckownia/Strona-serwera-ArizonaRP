@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $answer3 = $_POST['answer3'];
 
     // Tutaj możesz dodać kod do przetwarzania odpowiedzi, np. zapisywanie do bazy danych
-
     // Zaktualizuj rangę użytkownika
     $_SESSION['user_rank'] = 'Oczekuję';
 
