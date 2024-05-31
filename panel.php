@@ -73,6 +73,7 @@ $conn->close();
                     } else {
                         echo "<button class='btn-join-2' disabled>Spróbuj ponownie o $retry_time</button>";
                     }
+                    echo '<a href="checkSubmissions.php"><button class="btn-join-2">Sprawdź status podań</button></a>';
                 } else if ($_SESSION["user_rank"] == "Oczekuję") {
                     echo "<button class='btn-join-2' disabled>Twoje podanie oczekuje na weryfikację</button>";
                 } else {
@@ -84,6 +85,7 @@ $conn->close();
                 }
                 if ($_SESSION["user_rank"] == "Gracz") {
                     echo '<a href="request.php"><button class="btn-join-2">Wyślij podanie</button></a>';
+                    echo '<a href="checkSubmissions.php"><button class="btn-join-2">Sprawdź status podań</button></a>';
                 }
             ?>
         </div>
