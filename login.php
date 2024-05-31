@@ -105,7 +105,7 @@ if(isset($_POST['login'])){
             Zaloguj się
         </div>
         <?php if(!empty($statusMsg)){ ?>
-            <p class="status-msg <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
+            <p class="alert-danger <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
         <?php } ?>
         <form action="login.php" method="post">
             <div class="field">
