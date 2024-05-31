@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit();
+}
+?>
 <!DOCTYPE html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -254,19 +261,20 @@
     <div id="headline-manage" class="headline-section">
     <?php
         require 'database.php';
-        $sql = "SELECT id, type, date, status FROM submissions where id = '35'";
+        $sql = "SELECT id, nickname, type, date, status FROM submissions where nickname =  '{$_SESSION['user_nickname']}'";
         $result = mysqli_query($conn, $sql);
-        if ($result) {
+        if (mysqli_num_rows($result) > 0) {
             echo "<table border='1' id='applications-table'>";
             echo "<tr><th>Typ</th><th>Data</th><th>Status</th></tr>";
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr></tr>";
                 echo "<td>" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "</td>";
                 echo "<td>" . htmlspecialchars($row['date'], ENT_QUOTES, 'UTF-8') . "</td>";  
-                echo "<td>" . htmlspecialchars($row['status'], ENT_QUOTES, 'UTF-8') . "</td>";            }
+                echo "<td>" . htmlspecialchars($row['status'], ENT_QUOTES, 'UTF-8') . "</td>";            
+            }
             echo "</table>";
         } else {
-            echo "Błąd: " . mysqli_error($conn);
+            echo "Nie znaleziono podań."; //tu to ogarnij jakoś żeby elegancko było
         }
         echo '<a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>';
         mysqli_close($conn);

@@ -76,6 +76,8 @@ $conn->close();
                     echo '<a href="checkSubmissions.php"><button class="btn-join-2">Sprawdź status podań</button></a>';
                 } else if ($_SESSION["user_rank"] == "Oczekuję") {
                     echo "<button class='btn-join-2' disabled>Twoje podanie oczekuje na weryfikację</button>";
+                    echo '<a href="checkSubmissions.php"><button class="btn-join-2">Sprawdź status podań</button></a>';
+
                 } else {
                     echo '<a href="https://discord.gg/WYq74GqehK" target="_blank"><button class="btn-join-2">Dołącz na serwer</button></a>';
                 }
