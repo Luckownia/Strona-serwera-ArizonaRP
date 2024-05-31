@@ -2,10 +2,10 @@
 require 'database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userId = mysqli_real_escape_string($conn, $_POST['userId']);
+    $submissionId = mysqli_real_escape_string($conn, $_POST['submissionId']);
     $newStatus = mysqli_real_escape_string($conn, $_POST['newStatus']);
 
-    $sql = "UPDATE submissions SET status = '$newStatus' WHERE id = '$userId'";
+    $sql = "UPDATE submissions SET status = '$newStatus' WHERE id_submission = '$submissionId'";
     
     if (mysqli_query($conn, $sql)) {
         echo "success";

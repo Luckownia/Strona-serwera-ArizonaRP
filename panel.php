@@ -16,7 +16,7 @@ $stmt->fetch();
 $stmt->close();
 
 // Sprawdź, czy minął wymagany czas od niezdania
-$retry_time = date('Y-m-d H:i:s', strtotime($failed_time . ' +5 minutes'));
+$retry_time = date('Y-m-d H:i:s', strtotime($failed_time . ' +1 minutes')); //testowo 1 min
 $current_time = date('Y-m-d H:i:s');
 $can_retry = $current_time >= $retry_time;
 

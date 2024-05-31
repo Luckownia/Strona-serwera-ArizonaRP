@@ -254,21 +254,20 @@
     <div id="headline-manage" class="headline-section">
     <?php
         require 'database.php';
-        $sql = "SELECT id, nickname, type, answer1, answer2, answer3, date FROM submissions where status = 'Oczekujące'";
+        $sql = "SELECT id_submission, id, nickname, type, answer1, answer2, answer3, date FROM submissions where status = 'Oczekujące'";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             echo "<table border='1' id='applications-table'>";
-            echo "<tr><th>Nickname</th><th>Type</th><th>Answer 1</th><th>Answer 2</th><th>Answer 3</th><th>Time</th><th>Action</th></tr>";
+            echo "<tr><th>Nick</th><th>Typ</th><th>Odpowiedź 1</th><th>Odpowiedź 2</th><th>Odpowiedź 3</th><th>Data</th><th>Akcja</th></tr>";
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "'>";
+                echo "<tr data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "'>";
                 echo "<td>" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "</td>";
                 echo "<td>" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "</td>";
                 echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer1'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
                 echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer2'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
                 echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer3'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
                 echo "<td>" . htmlspecialchars($row['date'], ENT_QUOTES, 'UTF-8') . "</td>";
-                echo "<td><button class='btn-accept' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "'>&#10004;</button><button class='btn-reject' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "'>&#10008;</button></td>";
-                echo "</tr>";
+                echo "<td><button class='btn-accept' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-type='" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "'>&#10004;</button><button class='btn-reject' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-type='" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "'>&#10008;</button></td>";
             }
             echo "</table>";
         } else {
@@ -319,10 +318,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     function acceptSubmission(event) {
         // Pobieramy identyfikator podania
-        const submissionId = event.target.getAttribute('data-id');
+        const userId = event.target.getAttribute('data-id');
+        const submissionId = event.target.getAttribute('data-id-submission');
+        const submissionType = event.target.getAttribute('data-type');
         
         // Wywołujemy funkcję do zmiany rangi na "Gracz"
-        changeRank(submissionId, 'Gracz');
+        if(submissionType == 'whitelist'){
+            changeRank(userId, 'Gracz');
+        }
         changeStatus(submissionId, 'Przyjęte');
         location.reload();
     }
@@ -330,10 +333,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Funkcja obsługująca kliknięcie na ikonkę odrzucenia
     function rejectSubmission(event) {
         // Pobieramy identyfikator podania
-        const submissionId = event.target.getAttribute('data-id');
+        const userId = event.target.getAttribute('data-id');
+        const submissionId = event.target.getAttribute('data-id-submission');
+        const submissionType = event.target.getAttribute('data-type');
         
         // Wywołujemy funkcję do zmiany rangi na "Niezdane"
-        changeRank(submissionId, 'Niezdane');
+        if(submissionType == 'whitelist'){
+            changeRank(userId, 'Niezdane');
+        }
         changeStatus(submissionId, 'Nieprzyjęte');
         location.reload();
     }
@@ -362,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function changeStatus(submissionId, status) {
         // Tworzymy obiekt FormData z danymi, które chcemy wysłać
         const formData = new FormData();
-        formData.append('userId', submissionId);
+        formData.append('submissionId', submissionId);
         formData.append('newStatus', status);
 
         // Wysyłamy żądanie POST na odpowiedni adres URL
