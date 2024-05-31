@@ -274,7 +274,7 @@ if (!isset($_SESSION["user"])) {
             }
             echo "</table>";
         } else {
-            echo "<h2 class='headline'>Nie znaleziono podań.</h2>"; //tu to ogarnij jakoś żeby elegancko było
+            echo "<h2 class='headline'>Nie znaleziono podań.</h2>"; 
         }
         echo '<a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>';
         mysqli_close($conn);
