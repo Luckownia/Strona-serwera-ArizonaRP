@@ -5,56 +5,68 @@ session_start();
 $secretKey = '6Ldusu0pAAAAALXxpdJJJBbgiVPU9DH7uFO5esZX';
 $siteKey = '6Ldusu0pAAAAAFf_YspCyionhvfoBPJikgjz0-_Y';
 
+// Sprawdzenie, czy użytkownik jest już zalogowany
+if(isset($_SESSION["user"])) {
+    header("Location: panel.php");
+    exit;
+}
+
 // Jeśli formularz został przesłany
 $postData = $statusMsg = '';
 $status = 'error';
-if(isset($_POST['login'])){ 
-    $postData = $_POST;
 
-    // Validate reCAPTCHA checkbox 
-    if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])){ 
-        // Verify the reCAPTCHA API response 
-        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$_POST['g-recaptcha-response']); 
-        // Decode JSON data of API response 
-        $responseData = json_decode($verifyResponse); 
-        // If the reCAPTCHA API response is valid 
-        if($responseData->success){ 
-            // Retrieve value from the form input fields 
-            $email = !empty($_POST['email'])?$_POST['email']:'';
-            $password = !empty($_POST['password'])?$_POST['password']:'';
+// Sprawdzenie czy dane logowania są poprawne
+if(isset($_POST['login'])) {
+    // Validate login credentials
+    $email = !empty($_POST['email']) ? $_POST['email'] : '';
+    $password = !empty($_POST['password']) ? $_POST['password'] : '';
 
-            // Your login validation logic here
-            $sql = "SELECT * FROM users WHERE email = '$email'";
-            require 'database.php';
-            $result = mysqli_query($conn, $sql);
-            $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            if ($user) {
-                if (password_verify($password, $user["password"])) {
-                    $_SESSION["user"] = "yes";
-                    $_SESSION['user_id'] = $user['id']; // Załóżmy, że użytkownik ma identyfikator 'id' w tabeli użytkowników
-                    $_SESSION['user_nickname'] = $user['nickname'];
-                    $_SESSION['user_email'] = $user['email'];
-                    $_SESSION['user_rank'] = $user['rank'];
-                    header("Location: panel.php");
-                    die();
-                } else {
-                    $statusMsg = 'Nieprawidłowe hasło';
-                }
+    // Sprawdzenie, czy reCAPTCHA jest wymagana
+    if(isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= 2) {
+        if(empty($_POST['g-recaptcha-response'])) {
+            $statusMsg = 'Proszę potwierdzić, że nie jesteś robotem.';
+            $showRecaptcha = true; // Ustawienie flagi, aby wyświetlić reCAPTCHA
+        }
+    }
+
+    // Jeśli reCAPTCHA nie jest wymagana lub została zweryfikowana
+    if(!isset($showRecaptcha)) {
+        // Your login validation logic here
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+        require 'database.php';
+        $result = mysqli_query($conn, $sql);
+        $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        if ($user) {
+            if (password_verify($password, $user["password"])) {
+                $_SESSION["user"] = "yes";
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_nickname'] = $user['nickname'];
+                $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_rank'] = $user['rank'];
+                // Reset login attempts on successful login
+                $_SESSION['login_attempts'] = 0;
+                header("Location: panel.php");
+                exit;
             } else {
-                $statusMsg = 'Użytkownik z takim e-mailem nie istnieje';
+                // Increment login attempts
+                $_SESSION['login_attempts'] = isset($_SESSION['login_attempts']) ? ($_SESSION['login_attempts'] + 1) : 1;
+                $statusMsg = 'Nieprawidłowe hasło';
             }
-        } else { 
-            $statusMsg = 'Weryfikacja CAPTCHA nie powiodła się, spróbuj ponownie.'; 
-        } 
-    } else { 
-        // Show CAPTCHA verification error message only if form is submitted
-        if (isset($_POST['login'])) {
-            $statusMsg = 'Proszę potwierdzić, że nie jesteś robotem.'; 
+        } else {
+            $statusMsg = 'Użytkownik z takim e-mailem nie istnieje';
         }
     }
 }
-?>
 
+// Wyświetlanie reCAPTCHA tylko w przypadku nieprawidłowych danych logowania
+if(isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= 2 && !isset($showRecaptcha)) {
+    // Wyświetl reCAPTCHA
+    $showRecaptcha = true;
+} else {
+    // Nie wyświetlaj reCAPTCHA
+    $showRecaptcha = false;
+}
+?>
 <!DOCTYPE html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -65,8 +77,7 @@ if(isset($_POST['login'])){
     <meta name="keywords" content="">
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap"
-        rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">    
     <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 </head>
 
@@ -80,14 +91,6 @@ if(isset($_POST['login'])){
                         <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
                         <a href="index.php" class="logo-link">ArizonaRP</a>
                     </div>
-                    <label class="switch-mode-container">
-                        <input type="checkbox" class="switch-mode-checkbox">
-                        <span class="btn-switch-mode" tabindex="0">
-                            <span class="circle">
-                                <img src="public/assets/sun.png" alt="light-sun" class="circle-image">
-                            </span>
-                        </span>
-                    </label>
                     <button class="hamburger">
                         <span class="pasek1"></span>
                     </button>
@@ -121,7 +124,9 @@ if(isset($_POST['login'])){
                     <a href="#">Zapomniałeś hasła?</a>
                 </div>
             </div>
-            <div class="g-recaptcha" data-sitekey="<?php echo $siteKey; ?>"></div>
+            <?php if ($showRecaptcha) { ?>
+                <div class="g-recaptcha" data-sitekey="<?php echo $siteKey; ?>"></div>
+            <?php } ?>
             <div class="field">
                 <input type="submit" value="Zaloguj" name="login">
             </div>
@@ -134,3 +139,4 @@ if(isset($_POST['login'])){
     <script src="script-2.js"></script>
 </body>
 </html>
+
