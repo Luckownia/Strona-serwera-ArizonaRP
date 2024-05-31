@@ -79,10 +79,10 @@ $conn->close();
                     echo '<a href="https://discord.gg/WYq74GqehK" target="_blank"><button class="btn-join-2">Dołącz na serwer</button></a>';
                 }
                 if ($_SESSION["user_rank"] == "administrator") {
-                    echo '<a href="#"><button class="btn-join-2">Zarządzaj podaniami</button></a>';
+                    echo '<a href="manageSubmissions.php"><button class="btn-join-2">Zarządzaj podaniami</button></a>';
                     echo '<a href="manageUsers.php"><button class="btn-join-2">Zarządzaj graczami</button></a>';
                 }
-                if ($_SESSION["user_rank"] == "gracz") {
+                if ($_SESSION["user_rank"] == "Gracz") {
                     echo '<a href="request.php"><button class="btn-join-2">Wyślij podanie</button></a>';
                 }
             ?>

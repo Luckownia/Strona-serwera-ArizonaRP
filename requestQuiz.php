@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
 }
-
+require 'database.php'; // Wczytaj połączenie z bazą danych
 $questions = [
     'medic' => [
         'Medic.',
@@ -24,6 +24,29 @@ $questions = [
 
 $job = isset($_GET['job']) ? $_GET['job'] : 'medic';
 $current_questions = isset($questions[$job]) ? $questions[$job] : $questions['medic'];
+
+// Przetwarzanie formularza
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Odczytaj odpowiedzi z formularza
+    $answer1 = $_POST['answer1'];
+    $answer2 = $_POST['answer2'];
+    $answer3 = $_POST['answer3'];
+    $job = isset($_POST['job']) ? $_POST['job'] : 'medic';
+    // Odczytaj dane użytkownika z sesji
+    $nickname = $_SESSION['user_nickname'];
+    $user_id = $_SESSION['user_id'];
+    
+    // Wstawianie odpowiedzi do tabeli submissions
+    // Wstawianie odpowiedzi do tabeli submissions
+    $stmt = $conn->prepare("INSERT INTO submissions (id, nickname, type, answer1, answer2, answer3, date, status) VALUES (?, ?, ?, ?, ?, ?, NOW(), 'oczekujące')");
+    $stmt->bind_param("ssssss", $user_id, $nickname, $job, $answer1, $answer2, $answer3);
+    $stmt->execute();
+
+    
+    $stmt->close();
+    $conn->close();
+    header("Location: panel.php");
+}
 
 ?>
 
@@ -157,7 +180,8 @@ $current_questions = isset($questions[$job]) ? $questions[$job] : $questions['me
                 </nav>
                 </header>
                     <div id="headline-panel" class="headline-section">
-                    <form action="submitQuiz.php" method="post" class="form-question" id="quizForm">
+                    <form action="requestQuiz.php" method="post" class="form-question" id="quizForm">
+                    <input type="hidden" name="job" value="<?php echo $job; ?>">
                         <?php foreach ($current_questions as $index => $question): ?>
                             <div class="field <?php echo $index > 0 ? 'hidden' : ''; ?>" id="question<?php echo $index + 1; ?>">
                                 <h2><?php echo htmlspecialchars($question); ?></h2>

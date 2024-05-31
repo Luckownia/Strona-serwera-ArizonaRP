@@ -13,16 +13,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $answer1 = $_POST['answer1'];
     $answer2 = $_POST['answer2'];
     $answer3 = $_POST['answer3'];
-
-    // Tutaj możesz dodać kod do przetwarzania odpowiedzi, np. zapisywanie do bazy danych
-    // Zaktualizuj rangę użytkownika
-    $_SESSION['user_rank'] = 'Oczekuję';
-
-    // Zaktualizuj rangę w bazie danych
-    $stmt = $conn->prepare("UPDATE users SET rank = ? WHERE id = ?");
-    $rank = 'Oczekuję';
-    $stmt->bind_param("si", $rank, $_SESSION['user_id']);
+    
+    // Odczytaj dane użytkownika z sesji
+    $nickname = $_SESSION['user_nickname'];
+    $user_id = $_SESSION['user_id'];
+    
+    // Wstawianie odpowiedzi do tabeli submissions
+    $stmt = $conn->prepare("INSERT INTO submissions (id, nickname, type, answer1, answer2, answer3, date, status) VALUES ($user_id, ?, 'whitelist', ?, ?, ?, NOW(), 'oczekujące')");
+    $stmt->bind_param("ssss", $nickname, $answer1, $answer2, $answer3);
     $stmt->execute();
+
+      // Zaktualizuj rangę użytkownika
+      $_SESSION['user_rank'] = 'Oczekuję';
+
+      // Zaktualizuj rangę w bazie danych
+      $stmt = $conn->prepare("UPDATE users SET rank = ? WHERE id = ?");
+      $rank = 'Oczekuję';
+      $stmt->bind_param("si", $rank, $_SESSION['user_id']);
+      $stmt->execute();
 
     // Sprawdź, czy zapytanie zostało wykonane poprawnie
     if ($stmt->affected_rows > 0) {
@@ -30,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: panel.php");
         exit();
     } else {
-        echo "Wystąpił błąd podczas aktualizacji rangi.";
+        echo "Wystąpił błąd podczas zapisywania odpowiedzi.";
     }
     
     $stmt->close();
