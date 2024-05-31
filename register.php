@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="public/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 </head>
 <body>
 <span class="mouse"></span>
@@ -64,6 +65,18 @@
             array_push($errors, "Hasła nie są takie same");
         }
 
+         // Sprawdzenie reCAPTCHA po stronie serwera
+         $recaptcha_secret = '6Ldusu0pAAAAALXxpdJJJBbgiVPU9DH7uFO5esZX';
+         $recaptcha_response = $_POST['g-recaptcha-response'];
+ 
+         $recaptcha = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptcha_secret&response=$recaptcha_response");
+         $recaptcha = json_decode($recaptcha);
+ 
+         if (!$recaptcha->success) {
+             // reCAPTCHA nie została zweryfikowana
+             array_push($errors, "Potwierdź, że nie jesteś robotem.");
+         }
+ 
         // Tworzenie połączenia z bazą danych 
         //podminiłem na to require i dziala
         require 'database.php';
@@ -136,6 +149,7 @@
             <label>Powtórz hasło</label>
         </div>
         <div class="content"></div>
+        <div class="g-recaptcha" data-sitekey="6Ldusu0pAAAAAFf_YspCyionhvfoBPJikgjz0-_Y"></div>
         <div class="field">
             <input type="submit" value="Zarejestruj się" name="submit">
         </div>
