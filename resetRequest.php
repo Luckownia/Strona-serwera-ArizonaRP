@@ -14,7 +14,7 @@ if(isset($_POST["submit"])){
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
 
-    $url = "createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token); //do zmiany potem
+    $url = "http://localhost/projekty/Strona-serwera-ArizonaRP/createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token); //do zmiany potem
     
     $expires = date("U") + 1800;
     $userEmail = $_POST["email"];
@@ -58,8 +58,8 @@ if(isset($_POST["submit"])){
 
     $mail->isHTML(true);
 
-    $mail->Subject = 'Zresetuj hasło dla Arizona';
-    $mail->Body = 'Przesylam haselko ladne maselko';
+    $mail->Subject = 'Zresetuj haslo dla Arizona';
+    $mail->Body = "Oto twój link do resetowania hasła: <a href='$url'>$url</a>";
 
     try {
         $mail->send();
@@ -70,7 +70,8 @@ if(isset($_POST["submit"])){
     } catch (Exception $e) {
         echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
     }
-    /*$message = '<p> Wysłano mail </p>';
+    /*
+    $message = '<p> Wysłano mail </p>';
     $message .= '<p>Link: </br>';
     $message .= '<a href ="' . $url . '">' . $url . '</a></p>';
 
