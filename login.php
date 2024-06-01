@@ -83,6 +83,14 @@ if($_SESSION['login_attempts'] >= 2 ) {
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">    
     <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+    <style>
+        .wrapper form {
+        padding: 10px 30px 50px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+    </style>
 </head>
 
 <body>
