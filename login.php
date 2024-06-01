@@ -15,6 +15,9 @@ if(isset($_SESSION["user"])) {
 $postData = $statusMsg = '';
 $status = 'error';
 
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+}
 // Sprawdzenie czy dane logowania są poprawne
 if(isset($_POST['login'])) {
     // Validate login credentials
@@ -60,7 +63,7 @@ if(isset($_POST['login'])) {
 }
 
 // Wyświetlanie reCAPTCHA tylko w przypadku nieprawidłowych danych logowania
-if($_SESSION['login_attempts'] >= 2) {
+if($_SESSION['login_attempts'] >= 2 ) {
     // Wyświetl reCAPTCHA
     $showRecaptcha = true;
 } else {
