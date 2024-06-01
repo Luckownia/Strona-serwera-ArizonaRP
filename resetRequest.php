@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'phpmailer/src/Exception.php';
+require 'phpmailer/src/PHPMailer.php';
+require 'phpmailer/src/SMTP.php';
+
 require 'database.php';
 
 if(isset($_POST["submit"])){
@@ -36,17 +43,41 @@ if(isset($_POST["submit"])){
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 
-    $to = $userEmail;
-    $subject = 'Zresetuj hasło dla Arizona';
+    // PHPMAILER
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'arizonaroleplaycompany@gmail.com';
+    $mail->Password = 'rrbzgfpmpmngkhvt';
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465;
 
-    $message = '<p> Wysłano mail </p>';
+    $mail->setFrom('arizonaroleplaycompany@gmail.com');
+    $mail->addAddress($userEmail);
+
+    $mail->isHTML(true);
+
+    $mail->Subject = 'Zresetuj hasło dla Arizona';
+    $mail->Body = 'Przesylam haselko ladne maselko';
+
+    try {
+        $mail->send();
+        echo '<script>
+                alert("Sent Successfully");
+                document.location.href="resetPassword.php";
+            </script>';
+    } catch (Exception $e) {
+        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+    }
+    /*$message = '<p> Wysłano mail </p>';
     $message .= '<p>Link: </br>';
     $message .= '<a href ="' . $url . '">' . $url . '</a></p>';
 
-    $headers = "Z: ArizonaRP <arizonarp@gmail.com>\r\n";
+    $headers = "Z: ArizonaRP <arizonarp@gmail.com>\r\n"; //
     $headers .= "Odpowiedz dla: arizonarp@gmail.com\r\n";
     $headers .= "Content-type: text/html\r\n";
-
+    */
     mail($to, $subject, $message, $headers); //potem do odkomentowania
     echo "$message"; 
     header("Location: resetPassword.php?reset=success"); //to trzeba potem odkomentowac,
