@@ -49,17 +49,18 @@ if(isset($_POST['login'])) {
                 exit;
             } else {
                 // Increment login attempts
-                $_SESSION['login_attempts'] = isset($_SESSION['login_attempts']) ? ($_SESSION['login_attempts'] + 1) : 1;
+                $_SESSION['login_attempts'] = $_SESSION['login_attempts'] + 1;
                 $statusMsg = 'Nieprawidłowe hasło';
             }
         } else {
             $statusMsg = 'Użytkownik z takim e-mailem nie istnieje';
+            $_SESSION['login_attempts'] = $_SESSION['login_attempts'] + 1;
         }
     }
 }
 
 // Wyświetlanie reCAPTCHA tylko w przypadku nieprawidłowych danych logowania
-if(isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= 2 && !isset($showRecaptcha)) {
+if($_SESSION['login_attempts'] >= 2) {
     // Wyświetl reCAPTCHA
     $showRecaptcha = true;
 } else {
