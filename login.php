@@ -123,6 +123,13 @@ if($_SESSION['login_attempts'] >= 2 ) {
             </nav>
         </div>
     </header>
+    <?php
+       if(isset($_GET["newpwd"])){
+        if($_GET["newpwd"] == "passwordupdated"){
+            echo '<p class ="signupsuccess">zaaktualizowano haslo!</p>';
+        }
+       }
+    ?>
     <div class="wrapper">
         <div class="title">
             Zaloguj się
@@ -141,7 +148,7 @@ if($_SESSION['login_attempts'] >= 2 ) {
             </div>
             <div class="content">
                 <div class="pass-link">
-                    <a href="#">Zapomniałeś hasła?</a>
+                    <a href="resetPassword.php">Zapomniałeś hasła?</a>
                 </div>
             </div>
             <?php if ($showRecaptcha) { ?>
