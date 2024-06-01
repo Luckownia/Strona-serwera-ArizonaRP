@@ -90,6 +90,13 @@ if($_SESSION['login_attempts'] >= 2 ) {
         flex-direction: column;
         align-items: center;
         }
+        .signupsuccess{
+            text-align: center;
+            color: green;
+            font: var(--fontfirst);
+            font-weight: 700;
+            font-size: 17px;
+        }
     </style>
 </head>
 
@@ -131,6 +138,13 @@ if($_SESSION['login_attempts'] >= 2 ) {
             <p class="alert-danger <?php echo $status; ?>"><?php echo $statusMsg; ?></p>
         <?php } ?>
         <form action="login.php" method="post">
+        <?php
+             if(isset($_GET["newpwd"])){
+              if($_GET["newpwd"] == "passwordupdated"){
+                echo '<p class ="signupsuccess">Zaaktualizowano haslo!</p>';
+              }
+             }
+            ?>
             <div class="field">
                 <input type="text" required name="email">
                 <label>E-mail</label>
@@ -144,13 +158,7 @@ if($_SESSION['login_attempts'] >= 2 ) {
                     <a href="resetPassword.php">Zapomniałeś hasła?</a>
                 </div>
             </div>
-            <?php
-             if(isset($_GET["newpwd"])){
-              if($_GET["newpwd"] == "passwordupdated"){
-                echo '<p class ="signupsuccess">zaaktualizowano haslo!</p>';
-              }
-             }
-            ?>
+            
             <?php if ($showRecaptcha) { ?>
                 <div class="g-recaptcha" data-sitekey="<?php echo $siteKey; ?>"></div>
             <?php } ?>

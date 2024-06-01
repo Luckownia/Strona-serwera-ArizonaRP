@@ -10,6 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+    <style>
+        .resetSuccess{
+            text-align: center;
+            color: green;
+            font: var(--fontfirst);
+            font-weight: 700;
+            font-size: 17px;
+        }
+    </style>
 </head>
 <body>
 <span class="mouse"></span>
@@ -43,6 +52,13 @@
 <div class="wrapper">
     <div class="title">Zapomniałem hasła</div>
     <form action="resetRequest.php" method="post">
+    <?php 
+      if (isset($_GET["reset"])){
+        if ($_GET["reset"] == "success"){
+            echo '<p class="resetSuccess"> Sprawdź maila </p>';
+        }
+      }
+    ?>
         <div class="field">
             <input type="text" name="email" required>
             <label>E-mail</label>
@@ -52,14 +68,7 @@
             <input type="submit" value="Przypomnij hasło" name="submit">
         </div>
     </form>
-    <?php 
-      if (isset($_GET["reset"])){
-        if ($_GET["reset"] == "success"){
-            echo '<p class="resetSuccess"> Sprawdź maila </p>';
-        }
-      }
-    
-    ?>
+ 
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="script-2.js"></script>

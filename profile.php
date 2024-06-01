@@ -25,6 +25,9 @@ if (!isset($_SESSION["user"])) {
         #deleteAccountButton:hover{
             background-color: #d30f0f; /* Kolor tła po najechaniu */
         }
+        .alert-success{
+            text-align:left;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +91,7 @@ if (!isset($_SESSION["user"])) {
                     $sql = "UPDATE users SET password = '$hashedPassword' WHERE nickname = '$user'";
 
                     if ($conn->query($sql) === TRUE) {
-                        echo "<div class='alert-success'>Pomyślnie zmieniono hasło.</div>";
+                        echo "<p class='alert-success'>Pomyślnie zmieniono hasło.</p>";
                     } else {
                         echo "<div class='alert-danger'>Coś poszło nie tak przy zmianie hasła: " . $conn->error . "</div>";
                     }
