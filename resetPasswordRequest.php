@@ -72,7 +72,7 @@
                             }else{
                               mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                               mysqli_stmt_execute($stmt);
-                              header("login.php?newpwd=passwordupdated");
+                              header("Location: login.php?newpwd=passwordupdated");
                              }
                         }
                     }

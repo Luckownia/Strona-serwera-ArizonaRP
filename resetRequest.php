@@ -7,7 +7,7 @@ if(isset($_POST["submit"])){
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
 
-    $url = "createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token);
+    $url = "createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token); //do zmiany potem
     
     $expires = date("U") + 1800;
     $userEmail = $_POST["email"];
@@ -47,9 +47,11 @@ if(isset($_POST["submit"])){
     $headers .= "Odpowiedz dla: arizonarp@gmail.com\r\n";
     $headers .= "Content-type: text/html\r\n";
 
-    //mail($to, $subject, $message, $headers);
-    echo "$message";
-    header("resetPassword.php?reset=success");
+    //mail($to, $subject, $message, $headers); //potem do odkomentowania
+    echo "$message"; 
+    //header("Location: resetPassword.php?reset=success"); //to trzeba potem odkomentowac,
+    //teraz jest po to zeby wiadomosc widziec
+    header("jklkurwe");
 }
 else{
     header("login.php");

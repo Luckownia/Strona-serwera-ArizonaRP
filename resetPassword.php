@@ -55,7 +55,7 @@
     <?php 
       if (isset($_GET["reset"])){
         if ($_GET["reset"] == "success"){
-            echo '<p class="resetSuccess">Sprawdź mail!</p>';
+            echo '<p class="resetSuccess"> Sprawdź maila </p>';
         }
       }
     
