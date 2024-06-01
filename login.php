@@ -91,6 +91,14 @@ if(isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= 2 && !is
                         <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
                         <a href="index.php" class="logo-link">ArizonaRP</a>
                     </div>
+                    <label class="switch-mode-container">
+                    <input type="checkbox" class="switch-mode-checkbox">
+                    <span class="btn-switch-mode" tabindex="0">
+                        <span class="circle">
+                            <img src="public/assets/sun.png" alt="light-sun" class="circle-image">
+                        </span>
+                    </span>
+                    </label>
                     <button class="hamburger">
                         <span class="pasek1"></span>
                     </button>
