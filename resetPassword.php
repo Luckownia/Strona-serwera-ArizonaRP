@@ -18,6 +18,13 @@
             font-weight: 700;
             font-size: 17px;
         }
+        .resetFailed{
+            text-align: center;
+            color: red;
+            font: var(--fontfirst);
+            font-weight: 700;
+            font-size: 17px;
+        }
     </style>
 </head>
 <body>
@@ -56,6 +63,9 @@
       if (isset($_GET["reset"])){
         if ($_GET["reset"] == "success"){
             echo '<p class="resetSuccess"> Sprawdź maila </p>';
+        }
+        if ($_GET["reset"] == "notfound"){
+            echo '<p class="resetFailed"> Nie znaleziono maila </p>';
         }
       }
     ?>
