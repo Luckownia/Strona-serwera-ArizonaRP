@@ -51,7 +51,6 @@ if(isset($_POST["submit"])){
     echo "$message"; 
     //header("Location: resetPassword.php?reset=success"); //to trzeba potem odkomentowac,
     //teraz jest po to zeby wiadomosc widziec
-    header("jklkurwe");
 }
 else{
     header("login.php");
