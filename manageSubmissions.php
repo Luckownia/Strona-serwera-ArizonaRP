@@ -263,22 +263,26 @@ if (!isset($_SESSION["user"])) {
         require 'database.php';
         $sql = "SELECT id_submission, id, nickname, type, answer1, answer2, answer3, date FROM submissions where status = 'Oczekujące'";
         $result = mysqli_query($conn, $sql);
-        if ($result) {
-            echo "<table border='1' id='applications-table'>";
-            echo "<tr><th>Nick</th><th>Typ</th><th>Odpowiedź 1</th><th>Odpowiedź 2</th><th>Odpowiedź 3</th><th>Data</th><th>Akcja</th></tr>";
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "'>";
-                echo "<td>" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "</td>";
-                echo "<td>" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "</td>";
-                echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer1'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
-                echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer2'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
-                echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer3'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
-                echo "<td>" . htmlspecialchars($row['date'], ENT_QUOTES, 'UTF-8') . "</td>";
-                echo "<td><button class='btn-accept' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-type='" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "'>&#10004;</button><button class='btn-reject' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-type='" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "'>&#10008;</button></td>";
+        if (mysqli_num_rows($result) > 0) {
+            if ($result) {
+                echo "<table border='1' id='applications-table'>";
+                echo "<tr><th>Nick</th><th>Typ</th><th>Odpowiedź 1</th><th>Odpowiedź 2</th><th>Odpowiedź 3</th><th>Data</th><th>Akcja</th></tr>";
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "'>";
+                    echo "<td>" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "</td>";
+                    echo "<td>" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "</td>";
+                    echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer1'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
+                    echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer2'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
+                    echo "<td><button class='btn-show-answer' data-answer='" . htmlspecialchars($row['answer3'], ENT_QUOTES, 'UTF-8') . "'>Pokaż</button></td>";
+                    echo "<td>" . htmlspecialchars($row['date'], ENT_QUOTES, 'UTF-8') . "</td>";
+                    echo "<td><button class='btn-accept' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-type='" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "'>&#10004;</button><button class='btn-reject' data-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-id-submission='" . htmlspecialchars($row['id_submission'], ENT_QUOTES, 'UTF-8') . "' data-type='" . htmlspecialchars($row['type'], ENT_QUOTES, 'UTF-8') . "'>&#10008;</button></td>";
+                }
+                echo "</table>";
+            } else {
+                echo "Błąd: " . mysqli_error($conn);
             }
-            echo "</table>";
         } else {
-            echo "Błąd: " . mysqli_error($conn);
+            echo "<h2 class='headline'>Nie znaleziono podań.</h2>"; 
         }
         echo '<a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>';
         mysqli_close($conn);
