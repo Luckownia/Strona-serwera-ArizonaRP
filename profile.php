@@ -104,7 +104,7 @@ if (!isset($_SESSION["user"])) {
 
             <form action="profile.php" method="post">
                 <div class="field">
-                    <label>Hasło: </label>
+                    <label>Zmień hasło: </label>
                     <input type="password" name="new_password" required>
                     <input type="submit" value="Zmień" name="profile_submit">
                 </div>
@@ -114,9 +114,9 @@ if (!isset($_SESSION["user"])) {
             <a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>
         </div>
         <div class="container-car">
-            <h1 class='headline' id="rank">Ranga  </h1>
-            <?php echo "<h1 class='sub-headline' id='rank_con'>Ranga: {$_SESSION['user_rank']}</h1>";?>
-            <p class="sub-headline">Jakies zdjecie rangi czy odznaki</p>
+            <h1 class='headline' id="rank">WORK IN PROGRESS  </h1>
+            <?php echo "<h1 class='sub-headline' id='rank_con'>Ranga: {$_SESSION['user_rank']}</h1>";?> 
+            <p class="sub-headline">Coś tu trzeba dodać fajnego</p>
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
