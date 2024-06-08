@@ -20,6 +20,7 @@ if (!isset($_SESSION["user"])) {
             width: 180px;
             padding: 15px 20px;
             font-size: 18px;
+            color: white;
             margin-bottom: 30px;
         }
         #deleteAccountButton:hover{
@@ -27,6 +28,9 @@ if (!isset($_SESSION["user"])) {
         }
         .alert-success{
             text-align:left;
+        }
+        p {
+            margin: 0;
         }
     </style>
 </head>
@@ -102,7 +106,7 @@ if (!isset($_SESSION["user"])) {
             }
             ?>
 
-            <form action="profile.php" method="post">
+            <form action="profile.php" method="post" style="margin-top: 30px;">
                 <div class="field">
                     <label>Zmień hasło: </label>
                     <input type="password" name="new_password" required>

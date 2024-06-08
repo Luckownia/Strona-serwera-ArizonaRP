@@ -11,11 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
     <style>
+        .wrapper {
+            margin-top: 30px;
+        }
         .wrapper form {
-        padding: 10px 30px 50px 30px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+            padding: 10px 30px 50px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .wrapper form .content{
@@ -46,8 +49,8 @@
                 </button>
                 <ul class="navigation">
                     <li><a href="index.php" class="nav-link">Główna</a></li>
-                    <li><a href="#" class="nav-link active">Zaloguj się</a></li>
-                    <li> <a href="panel.php" class="nav-link"> Panel</a> </li>
+                    <li><a href="login.php" class="nav-link active">Zaloguj się</a></li>
+                    <li> <a href="panel.php" class="nav-link">Panel</a> </li>
                 </ul>
             </div>
         </nav>

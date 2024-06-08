@@ -209,12 +209,11 @@ input[type="checkbox"] {
 
 .btn-switch-mode .circle {
   content: "";
-  position: absolute;
-  top: 50%;
+  position: relative;
+  top: 20px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   background-color: var(--fifthcolor);
-  left: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -377,11 +376,11 @@ input[type="checkbox"] {
 .car-3d {
   position: absolute;
   right: 0;
-  top: 9%;
+  top: 10%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   width: 50vw;
-  height: 70vh;
+  height: 60vh;
 }
 
 .buttons {
@@ -391,6 +390,11 @@ input[type="checkbox"] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.circle-image {
+  width: 35px;
+  height: 35px;
 }
 
 .turn-on,
@@ -814,7 +818,6 @@ input[type="checkbox"] {
 
 .section-feature {
   display: flex;
-  margin-top: 120px;
   justify-content: space-between;
   align-items: center;
 }
@@ -848,17 +851,10 @@ input[type="checkbox"] {
 }
 
 #section-2,
+#section-3,
 #section-4 {
   height: 100vh;
   position: relative;
-  display: flex;
-  align-items: center;
-}
-
-#section-3 {
-  height: 100vh;
-  position: relative;
-  top: -17%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -879,7 +875,7 @@ input[type="checkbox"] {
 }
 
 .left-side {
-  transform: translateX(80%);
+  transform: translateX(90%);
 }
 
 .right-side {
@@ -1097,6 +1093,7 @@ input[type="checkbox"] {
 }
 
 #headline-profile .field label {
+  font-family: "Open Sans", sans-serif;
   color: var(--fourthcolor);
   font-weight: 400;
   font-size: 25px;
@@ -1104,6 +1101,7 @@ input[type="checkbox"] {
   margin-right: 10px;
 }
 #headline-profile .field input {
+  font-family: "Open Sans", sans-serif;
   height: 100%;
   width: 150px;
   outline: none;
@@ -1116,6 +1114,7 @@ input[type="checkbox"] {
 }
 
 #headline-profile .field input[type="submit"] {
+  font-family: "Open Sans", sans-serif;
   color: var(--firstcolor);
   border: none;
   padding: 10px;

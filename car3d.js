@@ -37,7 +37,8 @@
                 scene.add(light4);
 
                 renderer = new THREE.WebGLRenderer({
-                    alpha: true
+                    alpha: true,
+                    antialias: true
                 });
                 renderer.setSize(container3d.offsetWidth, container3d.offsetHeight);
                 document.body.appendChild(container3d);
