@@ -20,6 +20,7 @@ if (!isset($_SESSION["user"])) {
             width: 180px;
             padding: 15px 20px;
             font-size: 18px;
+            color: white;
             margin-bottom: 30px;
         }
         #deleteAccountButton:hover{
@@ -27,6 +28,9 @@ if (!isset($_SESSION["user"])) {
         }
         .alert-success{
             text-align:left;
+        }
+        p {
+            margin: 0;
         }
     </style>
 </head>
@@ -102,9 +106,9 @@ if (!isset($_SESSION["user"])) {
             }
             ?>
 
-            <form action="profile.php" method="post">
+            <form action="profile.php" method="post" style="margin-top: 30px;">
                 <div class="field">
-                    <label>Hasło: </label>
+                    <label>Zmień hasło: </label>
                     <input type="password" name="new_password" required>
                     <input type="submit" value="Zmień" name="profile_submit">
                 </div>
@@ -114,13 +118,46 @@ if (!isset($_SESSION["user"])) {
             <a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>
         </div>
         <div class="container-car">
-            <h1 class='headline' id="rank">Ranga  </h1>
-            <?php echo "<h1 class='sub-headline' id='rank_con'>Ranga: {$_SESSION['user_rank']}</h1>";?>
-            <p class="sub-headline">Jakies zdjecie rangi czy odznaki</p>
+            <div class="slideshow-container" style="left: 3%;">
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/feature1.jpeg"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/car.jpg"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/heist.jpg"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/bar.jpg"></div>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
         <script src="script-2.js"></script>
+        <script src="slideshow.js"></script>
         <script>
             const nick_profile = document.querySelector("#panel_nick");
             nick_profile.addEventListener("mouseenter", animateCursor);

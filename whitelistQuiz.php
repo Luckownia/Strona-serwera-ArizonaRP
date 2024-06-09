@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 border-radius: 15px;
                 box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
                 position: absolute;
-                top: 50%;
+                top: 55%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 font-family: var( --fontfirst);
@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <button class="hamburger">
                          <span class="pasek1"></span>
                         </button>
-                        <a href="#" class="nav-link active"> WhitelistQuiz</a>
+                        <a href="panel.php" class="nav-link active">Powrót</a>
                     </div>
                 </nav>
                 </header>
@@ -224,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <button class="quiz-answer">Answer 3</button>
                                 <button class="quiz-answer">Answer 4</button>
                             </div>
-                            <button class="next-btn">Next</button>
+                            <button class="next-btn">➤</button>
                             <button class="toQuestion hidden">Część pytań otwartych</button>
                         </div>
                         <form action="whitelistQuiz.php" method="post" class="form-question" id="quizForm">

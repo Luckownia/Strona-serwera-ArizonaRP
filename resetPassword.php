@@ -50,7 +50,7 @@
                 </button>
                 <ul class="navigation">
                     <li><a href="index.php" class="nav-link">Główna</a></li>
-                    <li><a href="#" class="nav-link active">Zaloguj się</a></li>
+                    <li><a href="login.php" class="nav-link active">Zaloguj się</a></li>
                     <li> <a href="panel.php" class="nav-link"> Panel</a> </li>
                 </ul>
             </div>

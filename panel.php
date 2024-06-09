@@ -77,13 +77,12 @@ $conn->close();
                     if ($can_retry) {
                         echo '<a href="updateRankTempWl.php"><button class="btn-join-2">Spróbuj ponownie</button></a>';
                     } else {
-                        echo "<button class='btn-join-2' disabled>Spróbuj ponownie o $retry_time</button>";
+                        echo "<button class='btn-join-2' disabled>Spróbuj ponownie $retry_time</button>";
                     }
                     echo '<a href="checkSubmissions.php"><button class="btn-join-2">Sprawdź status podań</button></a>';
                 } else if ($_SESSION["user_rank"] == "Oczekuję") {
                     echo "<button class='btn-join-2' disabled>Twoje podanie oczekuje na weryfikację</button>";
                     echo '<a href="checkSubmissions.php"><button class="btn-join-2">Sprawdź status podań</button></a>';
-
                 } else {
                     echo '<a href="https://discord.gg/WYq74GqehK" target="_blank"><button class="btn-join-2">Dołącz na serwer</button></a>';
                 }
@@ -97,9 +96,46 @@ $conn->close();
                 }
             ?>
         </div>
-        <div class="container-car"></div>
+        <div class="container-car">
+            <div class="slideshow-container" style="left: 3%;">
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/feature1.jpeg"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/car.jpg"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/heist.jpg"></div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="mySlides fade">
+                    <section id="section-1">
+                        <div class="section-feature">
+                            <div class="feature-photo"><img src="public/assets/bar.jpg"></div>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script-2.js"></script>
+    <script src="slideshow.js"></script>
 </body>
 </html>
