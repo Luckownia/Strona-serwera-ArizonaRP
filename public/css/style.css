@@ -518,7 +518,7 @@ input[type="checkbox"] {
 }
 
 .btn-join-2 {
-  padding: 25px 105px;
+  width: 550px;
   position: relative;
   overflow: hidden;
   transition: 0.5s;
@@ -771,6 +771,7 @@ input[type="checkbox"] {
 .feature-2 h1,
 .feature-3 h1,
 .feature-4 h1 {
+  max-width: 600px;
   font-family: var(--fontfirst);
   font-weight: 700;
   font-size: 55px;
@@ -822,10 +823,6 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-.feature-3 {
-  transition: 1s;
-}
-
 #section-2 .section-feature,
 #section-4 .section-feature {
   padding: 0px 100px;
@@ -850,6 +847,7 @@ input[type="checkbox"] {
   margin-left: 140px;
 }
 
+#section-1,
 #section-2,
 #section-3,
 #section-4 {
@@ -1067,8 +1065,29 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
 }
-#headline-panel ~ .container-car img {
-  width: 200px;
+
+.mySlides {
+  display: none;
+}
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+.active {
+  background-color: #717171;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
 }
 /*KONIEC PANELU*/
 

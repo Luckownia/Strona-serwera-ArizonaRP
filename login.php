@@ -123,7 +123,7 @@ if($_SESSION['login_attempts'] >= 2 ) {
                     </button>
                     <ul class="navigation">
                         <li><a href="index.php" class="nav-link"> Główna</a></li>
-                        <li><a href="#" class="nav-link active">Zaloguj się</a></li>
+                        <li><a href="#" class="nav-link active"> Zaloguj się</a></li>
                         <li><a href="panel.php" class="nav-link"> Panel</a></li>
                     </ul>
                 </div>
@@ -163,7 +163,7 @@ if($_SESSION['login_attempts'] >= 2 ) {
                 <div class="g-recaptcha" data-sitekey="<?php echo $siteKey; ?>"></div>
             <?php } ?>
             <div class="field">
-                <input type="submit" value="Zaloguj" name="login">
+                <input type="submit" value="Zaloguj się" name="login">
             </div>
             <div class="signup-link">
                 Nie masz konta? <a href="register.php">Zarejestruj się</a>
