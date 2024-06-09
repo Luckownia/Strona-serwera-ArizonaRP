@@ -60,7 +60,7 @@
                             serwer
                             i
                             dzięki sugestiom od graczy reguralnie dodajemy nową ekscytująca zawartość.</p>
-                        <a href="#section-1" class="btn-more" title="Dowiedz się więcej o naszym serwerze">Więcej</a>
+                        <a href="#section-0" class="btn-more" title="Dowiedz się więcej o naszym serwerze">Więcej</a>
                     </div>
                 </div>
                 <div class="container-car"></div>
@@ -73,7 +73,7 @@
                 <div class="car-3d"></div>
 
             </div>
-            <div class="landing-page-2" id="section-1">
+            <div class="landing-page-2" id="section-0">
                 <section id="section-1">
                     <div class="section-feature">
                         <div class="feature-1">
