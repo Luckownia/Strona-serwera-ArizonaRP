@@ -44,8 +44,9 @@
             flex-direction:column;
         }
         .user-details .btn-join-2{
-            padding:20px;
             font-size:18px;
+            padding: 25px 40px;
+            width: 300px;
         }
         .user-details .btn-join-2:first-child{
             margin-right: 20px;

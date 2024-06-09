@@ -771,7 +771,6 @@ input[type="checkbox"] {
 .feature-2 h1,
 .feature-3 h1,
 .feature-4 h1 {
-  max-width: 600px;
   font-family: var(--fontfirst);
   font-weight: 700;
   font-size: 55px;
@@ -874,6 +873,9 @@ input[type="checkbox"] {
 
 .left-side {
   transform: translateX(90%);
+}
+.feature-1{
+  transform: translateX(75%);
 }
 
 .right-side {
@@ -1086,7 +1088,7 @@ input[type="checkbox"] {
 }
 
 @keyframes fade {
-  from {opacity: .4} 
+  from {opacity: .4}
   to {opacity: 1}
 }
 /*KONIEC PANELU*/
