@@ -187,9 +187,9 @@ if ($_SESSION['user_rank'] != "Administrator") {
         <form id="changeRankForm" action="updateRank.php" method="post">
             <input type="hidden" id="userId" name="userId">
             <select id="newRankSelect" name="newRank"> <!-- Dodanie atrybutu name -->
-                <option value="rekrut">Rekrut</option>
-                <option value="gracz">Gracz</option>
-                <option value="administrator">Administrator</option>
+                <option value="Rekrut">Rekrut</option>
+                <option value="Gracz">Gracz</option>
+                <option value="Administrator">Administrator</option>
             </select>
             <button id="confirmRankChange" type="submit">Potwierdź</button>
         </form>
