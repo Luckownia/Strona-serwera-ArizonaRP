@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php?newpwd=firstlogin");
+    exit();
+}
+if ($_SESSION['user_rank'] != "Administrator") {
+    header("Location: panel.php");
+    exit();
+}
+?>
 <!DOCTYPE html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -176,9 +187,9 @@
         <form id="changeRankForm" action="updateRank.php" method="post">
             <input type="hidden" id="userId" name="userId">
             <select id="newRankSelect" name="newRank"> <!-- Dodanie atrybutu name -->
-                <option value="rekrut">Rekrut</option>
-                <option value="gracz">Gracz</option>
-                <option value="administrator">Administrator</option>
+                <option value="Rekrut">Rekrut</option>
+                <option value="Gracz">Gracz</option>
+                <option value="Administrator">Administrator</option>
             </select>
             <button id="confirmRankChange" type="submit">Potwierdź</button>
         </form>

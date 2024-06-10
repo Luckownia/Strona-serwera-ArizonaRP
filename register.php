@@ -62,7 +62,7 @@
         $nickname = $_POST["nickname"];
         $email = $_POST["email"];
         $password = $_POST["password"];
-        $rank = "rekrut"; //domyślna ranga, dla ludzi którzy jeszcze nie mają whitelist zdanej
+        $rank = "Rekrut"; //domyślna ranga, dla ludzi którzy jeszcze nie mają whitelist zdanej
         $repeated_password = $_POST["repeated_password"];
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $errors = array();

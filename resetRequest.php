@@ -98,9 +98,10 @@ if(isset($_POST["submit"])){
     $headers = "Z: ArizonaRP <arizonarp@gmail.com>\r\n"; //
     $headers .= "Odpowiedz dla: arizonarp@gmail.com\r\n";
     $headers .= "Content-type: text/html\r\n";
-    */
+
     mail($to, $subject, $message, $headers); //potem do odkomentowania
-    echo "$message"; 
+    echo "$message";
+    */
     header("Location: resetPassword.php?reset=success"); //to trzeba potem odkomentowac,
     //teraz jest po to zeby wiadomosc widziec
 }

@@ -97,6 +97,13 @@ if($_SESSION['login_attempts'] >= 2 ) {
             font-weight: 700;
             font-size: 17px;
         }
+        .signupfailed{
+            text-align: center;
+            color: red;
+            font: var(--fontfirst);
+            font-weight: 700;
+            font-size: 17px;
+        }
     </style>
 </head>
 
@@ -143,6 +150,9 @@ if($_SESSION['login_attempts'] >= 2 ) {
               if($_GET["newpwd"] == "passwordupdated"){
                 echo '<p class ="signupsuccess">Zaaktualizowano haslo!</p>';
               }
+                 if($_GET["newpwd"] == "firstlogin"){
+                     echo '<p class ="signupfailed">Najpierw się zaloguj!</p>';
+                 }
              }
             ?>
             <div class="field">

@@ -792,7 +792,27 @@ input[type="checkbox"] {
   box-shadow: 41px 38px 0px 6px rgba(64, 58, 58, 0.21);
   transition: 0.5s;
 }
+/* UKRYWANIE KURSORA */
+body {
+  cursor: none;
+}
+/* Ukryj domyślny kursor dla elementów nawigacyjnych nwm jakoś to dziwnie działa
+*:hover {
+  cursor: none;
+}
 
+.nav-link, .btn-switch-mode, .hamburger, .btn-more, .turn-on, .turn-off,
+.switch-mode-container, .btn-switch-mode, .circle-image, .circle,
+.switch-mode-checkbox, .headline, .sub-headline, .logo, label, .btn-join-2 {
+  cursor: none;
+}
+*/
+
+
+/* Animacja kursora */
+.cursor-animate {
+  transform: scale(1.5) translate(-50%, -50%);
+}
 #section-1 .section-feature .feature-photo img {
   border-radius: 30% 70% 70% 30% / 30% 28% 72% 70%;
 }

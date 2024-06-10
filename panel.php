@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
+    header("Location: login.php?newpwd=firstlogin");
     exit();
 }
 
@@ -71,7 +71,7 @@ $conn->close();
             <?php
                 echo "<h1 class='headline' id='headline_panel'>Witaj {$_SESSION['user_nickname']}, miło cię widzieć ;)</h1>";
                 echo '<a href="profile.php"><button class="btn-join-2">Mój Profil</button></a>';
-                if ($_SESSION["user_rank"] == "rekrut") {
+                if ($_SESSION["user_rank"] == "Rekrut") {
                     echo '<a href="updateRankTempWl.php"><button class="btn-join-2">Zdaj na white-list</button></a>';
                 } else if ($_SESSION["user_rank"] == "Niezdane") {
                     if ($can_retry) {
@@ -86,7 +86,7 @@ $conn->close();
                 } else {
                     echo '<a href="https://discord.gg/WYq74GqehK" target="_blank"><button class="btn-join-2">Dołącz na serwer</button></a>';
                 }
-                if ($_SESSION["user_rank"] == "administrator") {
+                if ($_SESSION["user_rank"] == "Administrator") {
                     echo '<a href="manageSubmissions.php"><button class="btn-join-2">Zarządzaj podaniami</button></a>';
                     echo '<a href="manageUsers.php"><button class="btn-join-2">Zarządzaj graczami</button></a>';
                 }
@@ -102,7 +102,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/feature1.jpeg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide3.jpg"></div>
                         </div>
                     </section>
                 </div>
@@ -110,7 +110,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/car.jpg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide4.jpg"></div>
                         </div>
                     </section>
                 </div>
@@ -118,7 +118,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/heist.jpg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide5.jpg"></div>
                         </div>
                     </section>
                 </div>
@@ -126,7 +126,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/bar.jpg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide7.jpg"></div>
                         </div>
                     </section>
                 </div>

@@ -1,24 +1,24 @@
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
+    header("Location: login.php?newpwd=firstlogin");
 }
 require 'database.php'; // Wczytaj połączenie z bazą danych
 $questions = [
     'medic' => [
-        'Medic.',
-        'Napisz historię swojej postaci. (min. 200 słów)',
-        'Napisz kreatywną akcję RP z udziałem twojej postaci. (min. 100 słów)'
+        'Dlaczego chcesz podjąć się pracy medyka i jakie masz doświadczenie?',
+        'Napisz historię swojej postaci.',
+        'Napisz kreatywną akcję RP z udziałem twojej postaci w roli medyka.'
     ],
     'police' => [
-        'Mylicjant.',
-        'Opisz swoje doświadczenie jako policjant. (min. 200 słów)',
-        'Podaj przykładową akcję RP, w której uczestniczyłeś jako policjant. (min. 100 słów)'
+        'Dlaczego chcesz podjąć się pracy policjanta i jakie masz doświadczenie?',
+        'Opisz swoje doświadczenie jako policjant.',
+        'Napisz kreatywną akcję RP z udziałem twojej postaci w roli policjanta.)'
     ],
     'mechanic' => [
-        'Mechanic.',
-        'Napisz historię swojego doświadczenia jako mechanik. (min. 200 słów)',
-        'Opisz skomplikowaną naprawę, którą wykonałeś. (min. 100 słów)'
+        'Dlaczego chcesz podjąć się pracy mechanika i jakie masz doświadczenie?',
+        'Napisz historię swojej postaci.',
+        'Napisz kreatywną akcję RP z udziałem twojej postaci w roli mechanika.'
     ]
 ];
 
@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <button class="hamburger">
                          <span class="pasek1"></span>
                         </button>
-                        <a href="#" class="nav-link active"> requestQuiz</a>
+                        <a href="panel.php" class="nav-link active"> Wróć</a>
                     </div>
                 </nav>
                 </header>
