@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php?newpwd=firstlogin");
+    exit();
+}
+if ($_SESSION['user_rank'] != "Administrator") {
+    header("Location: panel.php");
+    exit();
+}
+?>
 <!DOCTYPE html lang="pl">
 <head>
     <meta charset="UTF-8">

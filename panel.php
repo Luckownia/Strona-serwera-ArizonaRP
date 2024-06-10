@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
+    header("Location: login.php?newpwd=firstlogin");
     exit();
 }
 
@@ -96,7 +96,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/feature1.jpeg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide3.jpg"></div>
                         </div>
                     </section>
                 </div>
@@ -104,7 +104,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/car.jpg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide4.jpg"></div>
                         </div>
                     </section>
                 </div>
@@ -112,7 +112,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/heist.jpg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide5.jpg"></div>
                         </div>
                     </section>
                 </div>
@@ -120,7 +120,7 @@ $conn->close();
                 <div class="mySlides fade">
                     <section id="section-1">
                         <div class="section-feature">
-                            <div class="feature-photo"><img src="public/assets/bar.jpg"></div>
+                            <div class="feature-photo"><img src="public/assets/slide7.jpg"></div>
                         </div>
                     </section>
                 </div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
+    header("Location: login.php?newpwd=firstlogin");
 }
 require 'database.php'; // Wczytaj połączenie z bazą danych
 $questions = [
