@@ -65,7 +65,7 @@ $conn->close();
             <?php
                 echo "<h1 class='headline' id='headline_panel'>Witaj {$_SESSION['user_nickname']}, miło cię widzieć ;)</h1>";
                 echo '<a href="profile.php"><button class="btn-join-2">Mój Profil</button></a>';
-                if ($_SESSION["user_rank"] == "rekrut") {
+                if ($_SESSION["user_rank"] == "Rekrut") {
                     echo '<a href="updateRankTempWl.php"><button class="btn-join-2">Zdaj na white-list</button></a>';
                 } else if ($_SESSION["user_rank"] == "Niezdane") {
                     if ($can_retry) {
@@ -80,7 +80,7 @@ $conn->close();
                 } else {
                     echo '<a href="https://discord.gg/WYq74GqehK" target="_blank"><button class="btn-join-2">Dołącz na serwer</button></a>';
                 }
-                if ($_SESSION["user_rank"] == "administrator") {
+                if ($_SESSION["user_rank"] == "Administrator") {
                     echo '<a href="manageSubmissions.php"><button class="btn-join-2">Zarządzaj podaniami</button></a>';
                     echo '<a href="manageUsers.php"><button class="btn-join-2">Zarządzaj graczami</button></a>';
                 }
