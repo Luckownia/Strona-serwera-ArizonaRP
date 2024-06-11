@@ -1,5 +1,5 @@
 <?php
-require 'database.php';
+require '../config/database.php';
 
 if (isset($_GET['id'])) {
     $userId = intval($_GET['id']);

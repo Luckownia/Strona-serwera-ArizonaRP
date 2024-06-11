@@ -17,7 +17,7 @@ if ($_SESSION['user_rank'] != "Administrator") {
     <title>ArizonaRP</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
     <style>
@@ -184,7 +184,7 @@ if ($_SESSION['user_rank'] != "Administrator") {
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2 id="rank-user-nickname">Wybierz nową rangę dla:</h2>
-        <form id="changeRankForm" action="updateRank.php" method="post">
+        <form id="changeRankForm" action="../models/updateRank.php" method="post">
             <input type="hidden" id="userId" name="userId">
             <select id="newRankSelect" name="newRank"> <!-- Dodanie atrybutu name -->
                 <option value="Rekrut">Rekrut</option>
@@ -201,14 +201,14 @@ if ($_SESSION['user_rank'] != "Administrator") {
         <nav>
             <div class="navbar">
                 <div class="logo">
-                    <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
-                    <a href="index.php" class="logo-link">ArizonaRP</a>
+                    <img src="../assets/palm-tree-48.png" alt="palm-tree" width="48px">
+                    <a href="../../index.php" class="logo-link">ArizonaRP</a>
                 </div>
                 <label class="switch-mode-container">
                     <input type="checkbox" class="switch-mode-checkbox">
                     <span class="btn-switch-mode" tabindex="0">
                         <span class="circle">
-                            <img src="public/assets/sun.png" alt="light-sun" class="circle-image">
+                            <img src="../assets/sun.png" alt="light-sun" class="circle-image">
                         </span>
                     </span>
                 </label>
@@ -216,8 +216,8 @@ if ($_SESSION['user_rank'] != "Administrator") {
                     <span class="pasek1"></span>
                 </button>
                 <ul class="navigation">
-                    <li><a href="index.php" class="nav-link">Główna</a></li>
-                    <li><a href="logout.php" class="nav-link">Wyloguj się</a></li>
+                    <li><a href="../../index.php" class="nav-link">Główna</a></li>
+                    <li><a href="../models/logout.php" class="nav-link">Wyloguj się</a></li>
                     <li><a href="panel.php" class="nav-link active">Panel</a></li>
                 </ul>
             </div>
@@ -225,7 +225,7 @@ if ($_SESSION['user_rank'] != "Administrator") {
     </header>
     <div id="headline-manage" class="headline-section">
     <?php
-require 'database.php';
+require '../config/database.php';
 $sql = "SELECT id, nickname, rank FROM users";
 $result = mysqli_query($conn, $sql);
 if ($result) {
@@ -259,14 +259,14 @@ mysqli_close($conn);
     </div>
 </div>
 <?php
-require 'database.php';
+require '../config/database.php';
 $sql = "SELECT id, nickname, rank FROM users";
 $result = mysqli_query($conn, $sql);
 mysqli_close($conn);
 ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="script-2.js"></script>
+<script src="../../script/script-2.js"></script>
 <script>
    document.addEventListener('DOMContentLoaded', function () {
     const table = document.getElementById('users-table');
@@ -379,7 +379,7 @@ mysqli_close($conn);
     const userId = document.getElementById('userId').value;
     const newRank = document.getElementById('newRankSelect').value;
 
-    fetch('updateRank.php', {
+    fetch('../models/updateRank.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

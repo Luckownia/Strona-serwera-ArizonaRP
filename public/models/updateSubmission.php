@@ -1,5 +1,5 @@
 <?php
-require 'database.php';
+require '../config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $submissionId = mysqli_real_escape_string($conn, $_POST['submissionId']);

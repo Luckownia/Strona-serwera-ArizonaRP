@@ -6,7 +6,7 @@
     <title>ArizonaRP</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
@@ -33,14 +33,14 @@
         <nav>
             <div class="navbar">
                 <div class="logo">
-                    <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
-                    <a href="index.php" class="logo-link">ArizonaRP</a>
+                    <img src="../assets/palm-tree-48.png" alt="palm-tree" width="48px">
+                    <a href="../../index.php" class="logo-link">ArizonaRP</a>
                 </div>
                 <label class="switch-mode-container">
                     <input type="checkbox" class="switch-mode-checkbox">
                     <span class="btn-switch-mode" tabindex="0">
                         <span class="circle">
-                            <img src="public/assets/sun.png" alt="light-sun" class="circle-image">
+                            <img src="../assets/sun.png" alt="light-sun" class="circle-image">
                         </span>
                     </span>
                 </label>
@@ -48,7 +48,7 @@
                     <span class="pasek1"></span>
                 </button>
                 <ul class="navigation">
-                    <li><a href="index.php" class="nav-link">Główna</a></li>
+                    <li><a href="../../index.php" class="nav-link">Główna</a></li>
                     <li><a href="login.php" class="nav-link active">Zaloguj się</a></li>
                     <li> <a href="panel.php" class="nav-link">Panel</a> </li>
                 </ul>
@@ -94,7 +94,7 @@
  
         // Tworzenie połączenia z bazą danych 
         //podminiłem na to require i dziala
-        require 'database.php';
+        require '../config/database.php';
 
         // Sprawdzanie, czy email już istnieje
         $sql = "SELECT * FROM users WHERE email = ?";
@@ -171,6 +171,6 @@
     </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="script-2.js"></script>
+<script src="../../script/script-2.js"></script>
 </body>
 </html>
