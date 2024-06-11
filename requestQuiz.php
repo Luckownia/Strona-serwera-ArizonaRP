@@ -13,7 +13,7 @@ $questions = [
     'police' => [
         'Dlaczego chcesz podjąć się pracy policjanta i jakie masz doświadczenie?',
         'Opisz swoje doświadczenie jako policjant.',
-        'Napisz kreatywną akcję RP z udziałem twojej postaci w roli policjanta.)'
+        'Napisz kreatywną akcję RP z udziałem twojej postaci w roli policjanta.'
     ],
     'mechanic' => [
         'Dlaczego chcesz podjąć się pracy mechanika i jakie masz doświadczenie?',
