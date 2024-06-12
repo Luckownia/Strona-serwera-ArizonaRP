@@ -145,16 +145,22 @@ if ($_SESSION['user_rank'] != "Administrator") {
     
         /* Styl dla całej tabelki */
         #users-table {
-        border-collapse: collapse;
-        font-family: Arial, sans-serif;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 20px var(--seventhcolor);
-        /*display: block; */
-        /*mozna dodac scrollbar ale wtedy chudzsza tabela*/
-        max-height: 400px;
-        overflow-y: auto;  
-        width:100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            width:100%;
+        }
+        .table-container{
+            max-height: 400px; /*Wysokosc ktora po przekroczeniu wlacza sie scrollbar*/
+            overflow-y: auto;  
+            box-shadow: 0 2px 20px var(--seventhcolor);
+        }
+        .category{
+            position: sticky;
+            top:0;
+            z-index:2;
+        }
+        #headline-manage .btn-join-2{
+            margin-top:30px;
         }
         #users-table:hover{
             cursor: pointer;
@@ -229,8 +235,9 @@ require '../config/database.php';
 $sql = "SELECT id, nickname, rank FROM users";
 $result = mysqli_query($conn, $sql);
 if ($result) {
+    echo "<div class='table-container'>";
     echo "<table border='1' id='users-table'>";
-    echo "<tr><th>Nazwa użytkownika</th><th>Ranga</th></tr>"; // Dodano kolumnę Akcje
+    echo "<tr class='category'><th>Nazwa użytkownika</th><th>Ranga</th></tr>"; // Dodano kolumnę Akcje
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr data-user-id='" . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . "' data-user-nickname='" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "'>";
         echo "<td>" . htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8') . "</td>";
@@ -238,6 +245,7 @@ if ($result) {
         echo "</tr>";
     }
     echo "</table>";
+    echo "</div>";
 } else {
     echo "Błąd: " . mysqli_error($conn);
 }
