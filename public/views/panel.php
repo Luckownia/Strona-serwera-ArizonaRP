@@ -16,15 +16,9 @@ $stmt->fetch();
 $stmt->close();
 
 // Sprawdź, czy minął wymagany czas od niezdania
-/*$retry_time = date('Y-m-d H:i:s', strtotime($failed_time . ' +1 minutes')); //testowo 1 min
-$current_time = date('Y-m-d H:i:s');*/
-
-// Pobierz czas klienta z nagłówka HTTP
-$client_time = isset($_SERVER['HTTP_DATE']) ? strtotime($_SERVER['HTTP_DATE']) : time();
-
-// Dodaj 5 minut do czasu klienta
-$retry_time = date('Y-m-d H:i:s', $client_time + 60); // 300 sekund = 5 minut
-$can_retry = $client_time >= $retry_time;
+$retry_time = date('Y-m-d H:i:s', strtotime($failed_time . ' +1 minutes')); //testowo 1 min
+$current_time = date('Y-m-d H:i:s');
+$can_retry = $current_time >= $retry_time;
 
 $conn->close();
 ?>
