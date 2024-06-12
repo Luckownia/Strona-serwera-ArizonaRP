@@ -40,12 +40,12 @@
                             <?php
                             session_start();
                             if (isset($_SESSION['user'])) {
-                                echo '<li> <a href="logout.php" class="nav-link"> Wyloguj się</a> </li>';
+                                echo '<li> <a href="public/models/logout.php" class="nav-link"> Wyloguj się</a> </li>';
                             } else {
-                                echo '<li> <a href="login.php" class="nav-link"> Zaloguj się</a> </li>';
+                                echo '<li> <a href="public/views/login.php" class="nav-link"> Zaloguj się</a> </li>';
                             }
                             ?>
-                            <li> <a href="panel.php" class="nav-link"> Panel</a> </li>
+                            <li> <a href="public/views/panel.php" class="nav-link"> Panel</a> </li>
                         </ul>
 
                     </div>
@@ -133,15 +133,15 @@
                             mechanik?
                             Nic nie szkodzi! Na ArizonaRP mamy prace dorywcze, takich jak kucharz, rolnik, rybak, taxi,
                             śmieciarz oraz wiele innych!</p>
-                        <a href="login.php"><button class="btn-join-2">Dołącz do nas!</button></a>
+                        <a href="public/views/login.php"><button class="btn-join-2">Dołącz do nas!</button></a>
                     </div>
                 </div>
             </section>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-            <script src="script.js"></script>
+            <script src="script/script.js"></script>
             <script src="script/GLTFLoader.js"></script>
-            <script src="car3d.js"></script>
+            <script src="script/car3d.js"></script>
 
     </body>
 

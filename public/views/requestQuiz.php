@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION["user"])) {
     header("Location: login.php?newpwd=firstlogin");
 }
-require 'database.php'; // Wczytaj połączenie z bazą danych
+require '../config/database.php'; // Wczytaj połączenie z bazą danych
 $questions = [
     'medic' => [
         'Dlaczego chcesz podjąć się pracy medyka i jakie masz doświadczenie?',
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <title>ArizonaRP</title>
         <meta name="description" content="">
         <meta name="keywords" content="">
-        <link rel="stylesheet" href="public/css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap"
             rel="stylesheet">
@@ -161,14 +161,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <nav>
                     <div class="navbar">
                         <div class="logo">
-                            <img src="public/assets/palm-tree-48.png" alt="palm-tree" width="48px">
+                            <img src="../assets/palm-tree-48.png" alt="palm-tree" width="48px">
                             <a href="#" class="logo-link">ArizonaRP</a>
                         </div>
                         <label class="switch-mode-container">
                             <input type="checkbox" class="switch-mode-checkbox">
                             <span class="btn-switch-mode" tabindex="0">
                                 <span class="circle">
-                                    <img src="public/assets/sun.png" alt="light-sun" class="circle-image">
+                                    <img src="../assets/sun.png" alt="light-sun" class="circle-image">
                                 </span>
                             </span>
                         </label>
@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-            <script src="script-2.js"></script>
+            <script src="../../script/script-2.js"></script>
             <script>
                    //FORM WITH OPEN QUESTIONS 
                    function nextQuestion(questionNumber) {

@@ -70,12 +70,12 @@ const currentTheme = localStorage.getItem("theme");
 inputCheckbox.addEventListener("click", function () {
   document.body.classList.toggle("darkmode");
   if (circleImage.src.endsWith("sun.png")) {
-    circleImage.src = "public/assets/moon.png";
-    photo.src = "public/assets/blackpalm.png";
+    circleImage.src = "../assets/moon.png";
+    photo.src = "../assets/blackpalm.png";
     theme = "dark";
   } else if (circleImage.src.endsWith("moon.png")) {
-    circleImage.src = "public/assets/sun.png";
-    photo.src = "public/assets/palm-tree-48.png";
+    circleImage.src = "../assets/sun.png";
+    photo.src = "../assets/palm-tree-48.png";
     theme = "light";
   }
   localStorage.setItem("theme", theme);
@@ -84,13 +84,13 @@ inputCheckbox.addEventListener("click", function () {
 function themechange() {
   if (currentTheme == "dark") {
     document.body.classList.add("darkmode");
-    circleImage.src = "public/assets/moon.png";
-    photo.src = "public/assets/blackpalm.png";
+    circleImage.src = "../assets/moon.png";
+    photo.src = "../assets/blackpalm.png";
     theme = "dark";
   } else if (currentTheme == "light") {
     document.body.classList.remove("darkmode");
-    circleImage.src = "public/assets/sun.png";
-    photo.src = "public/assets/palm-tree-48.png";
+    circleImage.src = "../assets/sun.png";
+    photo.src = "../assets/palm-tree-48.png";
     theme = "light";
   }
 }

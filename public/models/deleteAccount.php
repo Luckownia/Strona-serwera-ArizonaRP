@@ -1,11 +1,11 @@
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
-    header("Location: index.php");
+    header("Location: ../../index.php");
     exit();
 }
 
-require 'database.php';
+require '../config/database.php';
 
 $user_id = $_SESSION["user_id"];
 

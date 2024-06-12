@@ -6,15 +6,15 @@
     $passwordRepeat = $_POST["pwd-repeat"];
      
     if (empty($password) || empty($passwordRepeat)){
-        header("createNewPassword.php?newpwd=empty");
+        header("../views/createNewPassword.php?newpwd=empty");
         exit();
     } else if ($password != $passwordRepeat){
-        header("createNewPassword.php?newpwd=pwdnotsame");
+        header("../views/createNewPassword.php?newpwd=pwdnotsame");
         exit();
     }
 
     $currentDate = date("U");
-    require 'database.php';
+    require '../config/database.php';
 
     $sql = "SELECT * FROM pwdReset WHERE pwdResetSelector=? AND pwdResetExpires >= ?";
     $stmt = mysqli_stmt_init($conn);
@@ -72,7 +72,7 @@
                             }else{
                               mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                               mysqli_stmt_execute($stmt);
-                              header("Location: login.php?newpwd=passwordupdated");
+                              header("Location: ../views/login.php?newpwd=passwordupdated");
                              }
                         }
                     }

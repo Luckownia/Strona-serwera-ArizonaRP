@@ -4,11 +4,11 @@ session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'phpmailer/src/Exception.php';
-require 'phpmailer/src/PHPMailer.php';
-require 'phpmailer/src/SMTP.php';
+require '../../phpmailer/src/Exception.php';
+require '../../phpmailer/src/PHPMailer.php';
+require '../../phpmailer/src/SMTP.php';
 
-require 'database.php';
+require '../config/database.php';
 
 if(isset($_POST["submit"])){
     $userEmail = $_POST["email"];
@@ -27,7 +27,7 @@ if(isset($_POST["submit"])){
         mysqli_stmt_close($stmt);
 
         if ($resultCount == 0) {
-            header("Location: resetPassword.php?reset=notfound");
+            header("Location: ../views/resetPassword.php?reset=notfound");
             exit();
         }
     }
@@ -35,7 +35,7 @@ if(isset($_POST["submit"])){
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
 
-    $url = "http://localhost/projekty/Strona-serwera-ArizonaRP/createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token); //do zmiany potem
+    $url = "http://localhost/projekty/Strona-serwera-ArizonaRP/public/views/createNewPassword.php?selector=" . $selector . "&validator=" . bin2hex($token); //do zmiany potem
     
     $expires = date("U") + 1800;
 
@@ -85,7 +85,7 @@ if(isset($_POST["submit"])){
         $mail->send();
         echo '<script>
                 alert("Sent Successfully");
-                document.location.href="resetPassword.php";
+                document.location.href="../views/resetPassword.php";
             </script>';
     } catch (Exception $e) {
         echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
@@ -102,10 +102,10 @@ if(isset($_POST["submit"])){
     mail($to, $subject, $message, $headers); //potem do odkomentowania
     echo "$message";
     */
-    header("Location: resetPassword.php?reset=success"); //to trzeba potem odkomentowac,
+    header("Location: ../views/resetPassword.php?reset=success"); //to trzeba potem odkomentowac,
     //teraz jest po to zeby wiadomosc widziec
 }
 else{
-    header("login.php");
+    header("../views/login.php");
 }
 ?>
