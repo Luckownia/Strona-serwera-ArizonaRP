@@ -147,19 +147,20 @@ if ($_SESSION['user_rank'] != "Administrator") {
         #users-table {
         border-collapse: collapse;
         font-family: Arial, sans-serif;
-        margin-top: 20px;
-        margin-bottom: 20px;
         box-shadow: 0 2px 20px var(--seventhcolor);
-        /*display: block; */
-        /*mozna dodac scrollbar ale wtedy chudzsza tabela*/
-        max-height: 400px;
-        overflow-y: auto;  
         width:100%;
+        }
+        .table-container{
+            max-height: 400px; /*Wysokosc tabeli po ktorej przekroczeniu wlaczy sie scroll */
+            overflow-y: auto;  
+            display: block; 
         }
         #users-table:hover{
             cursor: pointer;
         }
-
+        #headline-manage .btn-join-2{
+            margin-top: 40px;
+        }
         /* Styl dla nagłówków tabelki */
         #users-table th {
         background-color: var(--fourthcolor);
@@ -228,7 +229,9 @@ if ($_SESSION['user_rank'] != "Administrator") {
 require '../config/database.php';
 $sql = "SELECT id, nickname, rank FROM users";
 $result = mysqli_query($conn, $sql);
+
 if ($result) {
+    echo '<div class="table-container">';
     echo "<table border='1' id='users-table'>";
     echo "<tr><th>Nazwa użytkownika</th><th>Ranga</th></tr>"; // Dodano kolumnę Akcje
     while ($row = mysqli_fetch_assoc($result)) {
@@ -238,9 +241,11 @@ if ($result) {
         echo "</tr>";
     }
     echo "</table>";
+    echo '</div>';
 } else {
     echo "Błąd: " . mysqli_error($conn);
 }
+
 echo '<a href="panel.php"><button class="btn-join-2" id="btn_back">Wróć</button></a>';
 mysqli_close($conn);
 ?>
