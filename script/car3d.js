@@ -53,6 +53,7 @@
                     const audioLoader = new THREE.AudioLoader();
                     audioLoader.load("startMustang.mp3",function (buffer){
                         sound.setBuffer( buffer );
+                        sound.setVolume(0.1);
                         sound.play();
                     })
                 })
@@ -61,6 +62,7 @@
                     const audioLoader = new THREE.AudioLoader();
                     audioLoader.load("endMustang.mp3",function (buffer){
                         sound.setBuffer( buffer );
+                        sound.setVolume(0.1);
                         sound.play();
                     })
                 })
