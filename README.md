@@ -8,7 +8,7 @@ ArizonaRP to projekt serwera Role Play zbudowany przy użyciu nowoczesnych techn
 
 - **PHP** 
 - **JavaScript** 
-- **CSS/SCSS (Sass)** 
+- **CSS** 
 - **HTML**
 
 ## Funkcjonalności
