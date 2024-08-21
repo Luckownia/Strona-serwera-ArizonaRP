@@ -1,25 +1,28 @@
-# Strona-serwera-ArizonaRP
+# ArizonaRP Server Website
 
-## Witaj w projekcie ArizonaRP - stworzonym przez graczy, dla graczy!
+Welcome to the ArizonaRP project - created by players, for players! ArizonaRP is a Role Play server project built using modern web technologies, offering an immersive experience with realistic features and an interactive design.
 
-ArizonaRP to projekt serwera Role Play zbudowany przy użyciu nowoczesnych technologii, takich jak PHP, JavaScript, CSS, SCSS (Sass) oraz HTML. Projekt ma na celu stworzenie immersyjnego doświadczenia, które przyciąga graczy realistycznymi funkcjami i interaktywnym designem.
+## Technologies Used
 
-## Technologie
-
-- **PHP** 
-- **JavaScript** 
-- **CSS** 
+- **PHP**
+- **JavaScript**
+- **CSS**
+- **SCSS (Sass)**
 - **HTML**
 
-## Funkcjonalności
+## Features
 
-- **Interaktywny model 3D samochodu**
-  - Obracający się model 3D z dynamicznym oświetleniem.
-- **Dźwięk uruchamiania silnika**
-  - Realistyczny efekt dźwiękowy dodający głębi do gry.
-- **Tryby Dark Mode i Light Mode**
-  - Możliwość zmiany wyglądu strony w zależności od preferencji użytkownika.
-- **Efektowne hover-y**
-  - Interaktywne elementy strony z animowanymi efektami hover.
-- **System zarządzania użytkownikami i bazą danych**
-  - Rejestracja, logowanie, resetowanie hasła, oraz zarządzanie testami i rangami przez adminów.
+### Interactive 3D Car Model
+- A rotating 3D model with dynamic lighting to enhance user engagement.
+
+### Engine Start Sound
+- Realistic engine start sound effects that add depth and realism to the gaming experience.
+
+### Dark Mode and Light Mode
+- Users can toggle between Dark Mode and Light Mode based on their preferences, ensuring a comfortable browsing experience.
+
+### Impressive Hover Effects
+- Animations and interactive hover effects bring the website to life, creating a dynamic user interface.
+
+### User and Database Management System
+- Comprehensive user management, including registration, login, password reset, and admin capabilities for managing tests and ranks.
